@@ -1,23 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width,
-      initial-scale=1.0,
-      maximum-scale=1.0,
-      user-scalable=no">
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 <title>Happy Birthday ❤️</title>
 
 <style>
 
-/* =========================================================
-   RESET
-========================================================= */
+/* =========================
+   BASIC RESET
+========================= */
 
 * {
     margin: 0;
@@ -25,78 +20,152 @@
     box-sizing: border-box;
 }
 
-html,
-body {
-    width: 100%;
-    min-height: 100%;
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-
+    min-height: 100vh;
     overflow-x: hidden;
 
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+    font-family: Georgia, "Times New Roman", serif;
 
     color: #3b2529;
 
     background:
         repeating-linear-gradient(
             90deg,
-            #fbf2ef 0px,
-            #fbf2ef 34px,
-            #f2e4e0 34px,
-            #f2e4e0 68px
+            #fff7f4 0px,
+            #fff7f4 35px,
+            #f6e7e3 35px,
+            #f6e7e3 70px
         );
 }
 
 
-/* =========================================================
+/* =========================
    APP
-========================================================= */
+========================= */
 
 #app {
-
-    width: 100%;
-    min-height: 100svh;
-
+    min-height: 100vh;
     position: relative;
-
-    overflow: hidden;
 }
 
 
-/* =========================================================
-   CONFETTI
-========================================================= */
+/* =========================
+   BALLOONS
+========================= */
 
-.confetti-container {
-
+.balloon {
     position: fixed;
+    bottom: -120px;
 
-    inset: 0;
+    width: 45px;
+    height: 60px;
+
+    border-radius: 50% 50% 48% 48%;
+
+    opacity: .65;
+
+    z-index: 1;
 
     pointer-events: none;
 
-    overflow: hidden;
-
-    z-index: 1;
+    animation: balloonFloat 13s linear infinite;
 }
 
-.confetti {
+.balloon::after {
+    content: "";
 
     position: absolute;
 
-    top: -30px;
+    width: 1px;
+    height: 80px;
+
+    background: #777;
+
+    left: 50%;
+    top: 58px;
+}
+
+.balloon.pink {
+    background: #d95772;
+}
+
+.balloon.red {
+    background: #9e2341;
+}
+
+.balloon.yellow {
+    background: #dfbd69;
+}
+
+.balloon.one {
+    left: 5%;
+}
+
+.balloon.two {
+    right: 5%;
+    animation-delay: 4s;
+}
+
+.balloon.three {
+    left: 25%;
+    animation-delay: 7s;
+}
+
+.balloon.four {
+    right: 25%;
+    animation-delay: 2s;
+}
+
+@keyframes balloonFloat {
+
+    0% {
+        transform:
+            translateY(0)
+            rotate(-5deg);
+    }
+
+    50% {
+        transform:
+            translateY(-50vh)
+            rotate(5deg);
+    }
+
+    100% {
+        transform:
+            translateY(-115vh)
+            rotate(-5deg);
+    }
+}
+
+
+/* =========================
+   CONFETTI
+========================= */
+
+.confetti-container {
+    position: fixed;
+    inset: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 100;
+}
+
+.confetti {
+    position: absolute;
+
+    top: -20px;
 
     width: 7px;
     height: 13px;
 
     border-radius: 2px;
-
-    opacity: .85;
 
     animation:
         confettiFall linear forwards;
@@ -104,151 +173,34 @@ body {
 
 @keyframes confettiFall {
 
-    0% {
-
+    from {
         transform:
-            translateY(-30px)
-            rotate(0deg);
-
+            translateY(-20px)
+            rotate(0);
     }
 
-    100% {
-
+    to {
         transform:
             translateY(110vh)
             rotate(720deg);
-
     }
 }
 
 
-/* =========================================================
-   BACKGROUND BALLOONS
-========================================================= */
-
-.balloon {
-
-    position: fixed;
-
-    bottom: -130px;
-
-    width: 48px;
-    height: 63px;
-
-    border-radius:
-        50% 50% 48% 48%;
-
-    opacity: .7;
-
-    z-index: 2;
-
-    pointer-events: none;
-
-    animation:
-        floatingBalloon 13s linear infinite;
-}
-
-.balloon::before {
-
-    content: "";
-
-    position: absolute;
-
-    width: 1px;
-    height: 90px;
-
-    background: #777;
-
-    left: 50%;
-    top: 60px;
-}
-
-.balloon.pink {
-
-    background: #d95470;
-}
-
-.balloon.red {
-
-    background: #9e2341;
-}
-
-.balloon.yellow {
-
-    background: #dfbd69;
-}
-
-.balloon.one {
-    left: 4%;
-}
-
-.balloon.two {
-
-    right: 5%;
-
-    animation-delay: 4s;
-}
-
-.balloon.three {
-
-    left: 24%;
-
-    animation-delay: 7s;
-}
-
-.balloon.four {
-
-    right: 25%;
-
-    animation-delay: 2s;
-}
-
-@keyframes floatingBalloon {
-
-    0% {
-
-        transform:
-            translateY(0)
-            rotate(-5deg);
-
-    }
-
-    50% {
-
-        transform:
-            translateY(-50vh)
-            rotate(5deg);
-
-    }
-
-    100% {
-
-        transform:
-            translateY(-115vh)
-            rotate(-5deg);
-
-    }
-}
-
-
-/* =========================================================
+/* =========================
    SCREENS
-========================================================= */
+========================= */
 
 .screen {
-
-    width: 100%;
-
-    min-height: 100svh;
-
     display: none;
 
+    min-height: 100vh;
+    min-height: 100svh;
+
+    padding: 18px 12px 30px;
+
     align-items: center;
-
     justify-content: center;
-
-    padding:
-        16px 12px 25px;
 
     position: relative;
 
@@ -256,52 +208,40 @@ body {
 }
 
 .screen.active {
-
     display: flex;
 
     animation:
-        screenAppear .6s ease;
+        screenIn .6s ease;
 }
 
-@keyframes screenAppear {
+@keyframes screenIn {
 
     from {
-
         opacity: 0;
-
-        transform:
-            translateY(18px);
-
+        transform: translateY(20px);
     }
 
     to {
-
         opacity: 1;
-
-        transform:
-            translateY(0);
-
+        transform: translateY(0);
     }
 }
 
 
-/* =========================================================
+/* =========================
    MAIN CARD
-========================================================= */
+========================= */
 
 .main-card {
 
     width: min(100%, 460px);
 
-    max-height:
-        calc(100svh - 25px);
+    max-height: calc(100svh - 25px);
 
     overflow-y: auto;
-
     overflow-x: hidden;
 
-    padding:
-        27px 18px 25px;
+    padding: 28px 18px 26px;
 
     background:
         linear-gradient(
@@ -310,78 +250,63 @@ body {
             rgba(255,249,247,.98)
         );
 
-    border:
-        3px solid #332527;
+    border: 3px solid #332527;
 
     border-radius: 28px;
 
     box-shadow:
         7px 8px 0 #332527,
-        0 18px 45px
-        rgba(75,30,40,.18);
+        0 18px 45px rgba(75,30,40,.16);
 
     text-align: center;
 
     position: relative;
 }
 
-.main-card::before {
+.main-card::-webkit-scrollbar {
+    width: 4px;
+}
 
-    content: "";
-
-    position: absolute;
-
-    inset: 6px;
-
-    border:
-        1px solid
-        rgba(142,24,53,.12);
-
-    border-radius: 22px;
-
-    pointer-events: none;
+.main-card::-webkit-scrollbar-thumb {
+    background: #d89aa7;
+    border-radius: 10px;
 }
 
 
-/* =========================================================
-   TYPOGRAPHY
-========================================================= */
+/* =========================
+   TEXT
+========================= */
 
 .eyebrow {
-
     font-family: Arial, sans-serif;
 
     font-size: 10px;
 
     font-weight: 800;
 
-    letter-spacing: 1.8px;
+    letter-spacing: 1.7px;
 
     color: #9b2946;
 
     text-transform: uppercase;
 
-    margin-bottom: 9px;
+    margin-bottom: 10px;
 }
 
 h1 {
-
     color: #8e1835;
 
-    font-size:
-        clamp(34px, 9vw, 48px);
+    font-size: clamp(35px, 9vw, 49px);
 
     line-height: 1.05;
 
-    margin-bottom: 7px;
+    margin-bottom: 8px;
 }
 
 h2 {
-
     color: #8e1835;
 
-    font-size:
-        clamp(27px, 7vw, 38px);
+    font-size: clamp(27px, 7vw, 38px);
 
     line-height: 1.12;
 
@@ -389,7 +314,6 @@ h2 {
 }
 
 .script {
-
     font-family:
         "Brush Script MT",
         "Segoe Script",
@@ -401,11 +325,9 @@ h2 {
 }
 
 .subtitle {
+    max-width: 360px;
 
-    max-width: 350px;
-
-    margin:
-        0 auto 19px;
+    margin: 0 auto 20px;
 
     color: #5d4649;
 
@@ -415,7 +337,6 @@ h2 {
 }
 
 .small-text {
-
     color: #765b60;
 
     font-size: 12px;
@@ -424,70 +345,23 @@ h2 {
 }
 
 
-/* =========================================================
-   HEART
-========================================================= */
-
-.big-heart {
-
-    display: block;
-
-    font-size: 53px;
-
-    margin:
-        3px auto 9px;
-
-    animation:
-        heartbeat 1.4s infinite;
-}
-
-@keyframes heartbeat {
-
-    0%,
-    100% {
-
-        transform:
-            scale(1);
-
-    }
-
-    15% {
-
-        transform:
-            scale(1.14);
-
-    }
-
-    30% {
-
-        transform:
-            scale(1);
-
-    }
-}
-
-
-/* =========================================================
-   BUTTON
-========================================================= */
+/* =========================
+   BUTTONS
+========================= */
 
 .btn {
 
     display: inline-flex;
 
     align-items: center;
-
     justify-content: center;
 
     min-width: 190px;
+    min-height: 54px;
 
-    min-height: 55px;
+    padding: 12px 22px;
 
-    padding:
-        12px 23px;
-
-    border:
-        3px solid #332527;
+    border: 3px solid #332527;
 
     border-radius: 35px;
 
@@ -497,7 +371,7 @@ h2 {
 
     font-family: Arial, sans-serif;
 
-    font-size: 14px;
+    font-size: 13px;
 
     font-weight: 800;
 
@@ -508,10 +382,7 @@ h2 {
     box-shadow:
         0 5px 0 #332527;
 
-    transition:
-        transform .15s,
-        box-shadow .15s,
-        background .2s;
+    transition: .18s ease;
 
     position: relative;
 
@@ -519,33 +390,58 @@ h2 {
 }
 
 .btn:hover {
-
     background: #b02248;
 }
 
 .btn:active {
-
-    transform:
-        translateY(4px);
+    transform: translateY(4px);
 
     box-shadow:
         0 1px 0 #332527;
 }
 
 .btn.secondary {
-
     background: white;
-
     color: #8e1835;
 }
 
 
-/* =========================================================
+/* =========================
+   HEART
+========================= */
+
+.big-heart {
+    display: block;
+
+    font-size: 53px;
+
+    margin-bottom: 9px;
+
+    animation:
+        heartbeat 1.4s infinite;
+}
+
+@keyframes heartbeat {
+
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    15% {
+        transform: scale(1.14);
+    }
+
+    30% {
+        transform: scale(1);
+    }
+}
+
+
+/* =========================
    INTRO
-========================================================= */
+========================= */
 
 .intro-icons {
-
     display: flex;
 
     justify-content: center;
@@ -554,29 +450,25 @@ h2 {
 
     font-size: 27px;
 
-    margin:
-        10px 0 18px;
+    margin: 10px 0 18px;
 }
 
 
-/* =========================================================
+/* =========================
    BALLOON STAGE
-========================================================= */
+========================= */
 
 .balloon-stage {
-
     width: 100%;
 
-    height: 145px;
+    height: 150px;
 
     position: relative;
 
-    margin:
-        5px auto 10px;
+    margin: 5px auto 10px;
 }
 
 .stage-balloon {
-
     position: absolute;
 
     bottom: 15px;
@@ -584,15 +476,13 @@ h2 {
     width: 52px;
     height: 68px;
 
-    border-radius:
-        50% 50% 48% 48%;
+    border-radius: 50% 50% 48% 48%;
 
     animation:
         balloonBob 2.5s ease-in-out infinite;
 }
 
 .stage-balloon::after {
-
     content: "";
 
     position: absolute;
@@ -607,63 +497,47 @@ h2 {
 }
 
 .stage-balloon:nth-child(1) {
-
     left: 7%;
-
     background: #d95772;
 }
 
 .stage-balloon:nth-child(2) {
-
     left: 31%;
-
     background: #e4b65e;
-
     animation-delay: .3s;
 }
 
 .stage-balloon:nth-child(3) {
-
     right: 31%;
-
     background: #a92040;
-
     animation-delay: .7s;
 }
 
 .stage-balloon:nth-child(4) {
-
     right: 7%;
-
     background: #c98798;
-
     animation-delay: 1s;
 }
 
 @keyframes balloonBob {
 
-    0%,
-    100% {
-
+    0%, 100% {
         transform:
             translateY(0)
             rotate(-3deg);
-
     }
 
     50% {
-
         transform:
             translateY(-13px)
             rotate(3deg);
-
     }
 }
 
 
-/* =========================================================
+/* =========================
    FLIP CARDS
-========================================================= */
+========================= */
 
 .flip-grid {
 
@@ -671,8 +545,7 @@ h2 {
 
     max-width: 390px;
 
-    margin:
-        16px auto 13px;
+    margin: 16px auto 13px;
 
     display: grid;
 
@@ -684,7 +557,7 @@ h2 {
 
 .flip-card {
 
-    height: 170px;
+    height: 175px;
 
     perspective: 1000px;
 
@@ -708,9 +581,7 @@ h2 {
         cubic-bezier(.4,.2,.2,1);
 }
 
-.flip-card.flipped
-.flip-inner {
-
+.flip-card.flipped .flip-inner {
     transform:
         rotateY(180deg);
 }
@@ -751,9 +622,6 @@ h2 {
         4px 5px 0 #332527;
 }
 
-
-/* FRONT */
-
 .flip-front {
 
     background:
@@ -764,20 +632,6 @@ h2 {
         );
 
     color: #8e1835;
-}
-
-.flip-front::after {
-
-    content: "✦";
-
-    position: absolute;
-
-    right: 9px;
-    top: 7px;
-
-    color: #d29a56;
-
-    font-size: 17px;
 }
 
 .card-number {
@@ -797,7 +651,6 @@ h2 {
 }
 
 .card-icon {
-
     font-size: 34px;
 
     margin-bottom: 5px;
@@ -806,8 +659,18 @@ h2 {
         tinyFloat 2s ease-in-out infinite;
 }
 
-.flip-front strong {
+@keyframes tinyFloat {
 
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+.flip-front strong {
     font-family: Arial, sans-serif;
 
     font-size: 12px;
@@ -816,16 +679,12 @@ h2 {
 }
 
 .flip-front small {
-
     margin-top: 4px;
 
     color: #88696f;
 
     font-size: 9px;
 }
-
-
-/* BACK */
 
 .flip-back {
 
@@ -843,14 +702,12 @@ h2 {
 }
 
 .back-icon {
-
     font-size: 27px;
 
     margin-bottom: 3px;
 }
 
 .flip-back strong {
-
     font-family: Arial, sans-serif;
 
     font-size: 10px;
@@ -861,9 +718,6 @@ h2 {
 }
 
 .flip-back p {
-
-    margin: 0;
-
     color: #fff7f4;
 
     font-size: 10.5px;
@@ -871,16 +725,10 @@ h2 {
     line-height: 1.43;
 }
 
-.flip-card:active {
 
-    transform:
-        scale(.97);
-}
-
-
-/* =========================================================
-   UNLOCK BOX
-========================================================= */
+/* =========================
+   SECRET UNLOCK
+========================= */
 
 .secret-unlock {
 
@@ -888,8 +736,7 @@ h2 {
 
     max-width: 350px;
 
-    margin:
-        15px auto 0;
+    margin: 15px auto 0;
 
     padding: 14px;
 
@@ -902,14 +749,12 @@ h2 {
 }
 
 .lock-icon {
-
     font-size: 26px;
 
     margin-bottom: 4px;
 }
 
 .secret-unlock h3 {
-
     color: #8e1835;
 
     font-size: 16px;
@@ -918,7 +763,6 @@ h2 {
 }
 
 .secret-unlock p {
-
     color: #765b60;
 
     font-size: 11px;
@@ -930,8 +774,7 @@ h2 {
 
     display: inline-block;
 
-    padding:
-        6px 12px;
+    padding: 6px 12px;
 
     border-radius: 20px;
 
@@ -947,9 +790,9 @@ h2 {
 }
 
 
-/* =========================================================
+/* =========================
    SECRET NOTE
-========================================================= */
+========================= */
 
 .hidden-note {
 
@@ -959,11 +802,9 @@ h2 {
 
     max-width: 380px;
 
-    margin:
-        17px auto 0;
+    margin: 17px auto 0;
 
-    padding:
-        19px 17px;
+    padding: 19px 17px;
 
     background:
         linear-gradient(
@@ -994,7 +835,6 @@ h2 {
 @keyframes unlockAnimation {
 
     0% {
-
         opacity: 0;
 
         transform:
@@ -1004,7 +844,6 @@ h2 {
     }
 
     60% {
-
         transform:
             translateY(-5px)
             scale(1.02)
@@ -1012,7 +851,6 @@ h2 {
     }
 
     100% {
-
         opacity: 1;
 
         transform:
@@ -1026,8 +864,7 @@ h2 {
 
     display: inline-block;
 
-    padding:
-        6px 11px;
+    padding: 6px 11px;
 
     border-radius: 20px;
 
@@ -1047,7 +884,6 @@ h2 {
 }
 
 .note-heart {
-
     font-size: 41px;
 
     margin: 2px 0;
@@ -1092,28 +928,19 @@ h2 {
 
     font-size: 23px;
 
-    margin:
-        12px 0;
-}
-
-.warning {
-
-    color: #a27c82 !important;
-
-    font-size: 9.5px !important;
+    margin: 12px 0;
 }
 
 
-/* =========================================================
+/* =========================
    PHOTO SECTION
-========================================================= */
+========================= */
 
 .photo-intro {
 
     max-width: 350px;
 
-    margin:
-        0 auto 15px;
+    margin: 0 auto 17px;
 
     color: #765b60;
 
@@ -1128,18 +955,14 @@ h2 {
 
     max-width: 375px;
 
-    margin:
-        12px auto 20px;
+    margin: 12px auto 21px;
 
     display: flex;
 
     flex-direction: column;
 
-    gap: 22px;
+    gap: 23px;
 }
-
-
-/* Individual photo card */
 
 .photo-card {
 
@@ -1163,38 +986,26 @@ h2 {
 }
 
 .photo-card:nth-child(1) {
-
-    transform:
-        rotate(-2deg);
+    transform: rotate(-2deg);
 }
 
 .photo-card:nth-child(2) {
-
-    transform:
-        rotate(2deg);
+    transform: rotate(2deg);
 }
 
 .photo-card:nth-child(3) {
-
-    transform:
-        rotate(-1.5deg);
+    transform: rotate(-1.5deg);
 }
 
 .photo-card:nth-child(4) {
-
-    transform:
-        rotate(2.2deg);
+    transform: rotate(2.2deg);
 }
 
 .photo-card:hover {
-
     transform:
         rotate(0)
         translateY(-3px);
 }
-
-
-/* Image */
 
 .photo-frame {
 
@@ -1231,16 +1042,13 @@ h2 {
         scale(1.03);
 }
 
-
-/* Caption */
-
 .photo-caption {
 
     padding:
         11px 7px 2px;
 }
 
-.photo-caption .photo-title {
+.photo-title {
 
     color: #8e1835;
 
@@ -1261,19 +1069,12 @@ h2 {
     font-size: 11.5px;
 
     line-height: 1.5;
-
-    margin: 0;
 }
-
-
-/* =========================================================
-   PHOTO SECRET BOX
-========================================================= */
 
 .photo-secret {
 
     margin:
-        8px auto 18px;
+        8px auto 19px;
 
     padding:
         16px 14px;
@@ -1290,7 +1091,6 @@ h2 {
 }
 
 .photo-secret .secret-emoji {
-
     font-size: 28px;
 
     margin-bottom: 4px;
@@ -1306,14 +1106,13 @@ h2 {
 }
 
 .photo-secret strong {
-
     color: #8e1835;
 }
 
 
-/* =========================================================
+/* =========================
    CAKE
-========================================================= */
+========================= */
 
 .cake-area {
 
@@ -1358,11 +1157,11 @@ h2 {
 .cake-top::after {
 
     content:
-        "•  •  •  •  •";
+        "• • • • •";
 
     position: absolute;
 
-    left: 22px;
+    left: 42px;
     top: 8px;
 
     color: #8e1835;
@@ -1412,17 +1211,14 @@ h2 {
 }
 
 .candle:nth-child(1) {
-
     left: 48px;
 }
 
 .candle:nth-child(2) {
-
     left: 79px;
 }
 
 .candle:nth-child(3) {
-
     left: 110px;
 }
 
@@ -1452,40 +1248,34 @@ h2 {
 }
 
 .flame.off {
-
     display: none;
 }
 
 @keyframes flame {
 
     from {
-
         transform:
             rotate(-45deg)
             scale(.9);
-
     }
 
     to {
-
         transform:
             rotate(-45deg)
             scale(1.1);
-
     }
 }
 
 
-/* =========================================================
+/* =========================
    LETTER
-========================================================= */
+========================= */
 
 .letter {
 
     text-align: left;
 
-    padding:
-        17px;
+    padding: 17px;
 
     margin:
         9px 0 18px;
@@ -1496,10 +1286,6 @@ h2 {
         2px solid #ead8d0;
 
     border-radius: 17px;
-
-    box-shadow:
-        0 4px 16px
-        rgba(100,40,50,.06);
 }
 
 .letter p {
@@ -1524,14 +1310,12 @@ h2 {
     font-size: 24px;
 
     margin-top: 13px;
-
-    margin-bottom: 0;
 }
 
 
-/* =========================================================
-   FINAL QUESTION
-========================================================= */
+/* =========================
+   QUESTION
+========================= */
 
 .question {
 
@@ -1548,7 +1332,7 @@ h2 {
 
 .answer-area {
 
-    min-height: 145px;
+    min-height: 150px;
 
     display: flex;
 
@@ -1561,20 +1345,10 @@ h2 {
     position: relative;
 }
 
-#noBtn {
 
-    background: white;
-
-    color: #8e1835;
-
-    transition:
-        transform .25s ease;
-}
-
-
-/* =========================================================
-   FINAL SCREEN
-========================================================= */
+/* =========================
+   FINAL
+========================= */
 
 .final-heart {
 
@@ -1615,9 +1389,9 @@ h2 {
 }
 
 
-/* =========================================================
+/* =========================
    MUSIC BUTTON
-========================================================= */
+========================= */
 
 .music-btn {
 
@@ -1635,33 +1409,31 @@ h2 {
     border-radius: 50%;
 
     background:
-        rgba(255,255,255,.92);
+        rgba(255,255,255,.94);
 
     font-size: 18px;
 
     cursor: pointer;
 
-    z-index: 100;
+    z-index: 200;
 
     box-shadow:
         0 3px 0 #332527;
 }
 
 
-/* =========================================================
+/* =========================
    SMALL PHONES
-========================================================= */
+========================= */
 
 @media (max-width: 370px) {
 
     .screen {
-
         padding:
             10px 9px 18px;
     }
 
     .main-card {
-
         padding:
             21px 14px 20px;
 
@@ -1669,123 +1441,92 @@ h2 {
     }
 
     .flip-grid {
-
         gap: 9px;
     }
 
     .flip-card {
-
         height: 150px;
     }
 
     .flip-front,
     .flip-back {
-
         padding: 8px;
     }
 
     .card-icon {
-
         font-size: 29px;
     }
 
     .flip-back p {
-
         font-size: 9.5px;
     }
 
     .subtitle {
-
         font-size: 14px;
     }
 
     .btn {
-
         min-width: 175px;
 
         min-height: 52px;
 
-        font-size: 13px;
+        font-size: 12px;
     }
 
-    .photo-caption .photo-title {
-
+    .photo-title {
         font-size: 20px;
     }
 
     .photo-caption p {
-
         font-size: 10.5px;
     }
 }
 
 
-/* =========================================================
+/* =========================
    SHORT PHONES
-========================================================= */
+========================= */
 
 @media (max-height: 680px) {
 
     .screen {
-
         padding-top: 7px;
-
         padding-bottom: 10px;
     }
 
     .main-card {
-
         padding-top: 18px;
-
         padding-bottom: 18px;
     }
 
     .big-heart {
-
         font-size: 40px;
     }
 
     .balloon-stage {
-
         height: 105px;
     }
 
     .flip-card {
-
         height: 135px;
     }
 
     .flip-grid {
-
         margin:
             9px auto;
-    }
-
-    .cake-area {
-
-        transform:
-            scale(.8);
-
-        transform-origin:
-            center;
-
-        margin-top: -15px;
-
-        margin-bottom: -15px;
     }
 }
 
 
-/* =========================================================
+/* =========================
    REDUCED MOTION
-========================================================= */
+========================= */
 
 @media (prefers-reduced-motion: reduce) {
 
     *,
     *::before,
     *::after {
-
         animation-duration:
             .01ms !important;
 
@@ -1798,1132 +1539,1098 @@ h2 {
 }
 
 </style>
-
 </head>
 
 
 <body>
 
-
 <div id="app">
 
 
-<!-- =======================================================
-     CONFETTI
-======================================================= -->
-
-<div
-    class="confetti-container"
-    id="confetti">
-</div>
-
-
-<!-- =======================================================
-     BACKGROUND BALLOONS
-======================================================= -->
+<!-- BACKGROUND BALLOONS -->
 
 <div class="balloon pink one"></div>
-
 <div class="balloon red two"></div>
-
 <div class="balloon yellow three"></div>
-
 <div class="balloon pink four"></div>
 
 
-<!-- =======================================================
+<!-- CONFETTI -->
+
+<div
+class="confetti-container"
+id="confetti">
+</div>
+
+
+<!-- =====================================================
      SCREEN 1
-======================================================= -->
+===================================================== -->
 
 <section
-    class="screen active"
-    id="screen1">
+class="screen active"
+id="screen1">
 
-    <div class="main-card">
+<div class="main-card">
 
-        <div class="eyebrow">
-            A LITTLE SURPRISE FOR YOU ✨
-        </div>
+<div class="eyebrow">
+A LITTLE SURPRISE FOR YOU ✨
+</div>
 
-        <span class="big-heart">
-            ❤️
-        </span>
+<span class="big-heart">
+❤️
+</span>
 
-        <h1>
+<h1>
 
-            Happy Birthday
+Happy Birthday
 
-            <br>
+<br>
 
-            <span class="script">
-                Shivam
-            </span>
+<span class="script">
+Shivam
+</span>
 
-        </h1>
+</h1>
 
-        <div class="intro-icons">
+<div class="intro-icons">
 
-            🎂
-            ✨
-            🎈
+🎂
+✨
+🎈
 
-        </div>
+</div>
 
-        <p class="subtitle">
+<p class="subtitle">
 
-            Today isn't just your birthday...
+Today isn't just your birthday...
 
-            <br>
+<br>
 
-            it's the day my favorite
-            little idiot came into this world. 😭❤️
+it's the day my favorite
+little idiot came into this world. 😭❤️
 
-        </p>
-
-        <button
-            class="btn"
-            onclick="nextScreen(2)">
-
-            OPEN YOUR SURPRISE →
-
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- =======================================================
-     SCREEN 2 — BALLOONS
-======================================================= -->
-
-<section
-    class="screen"
-    id="screen2">
-
-    <div class="main-card">
-
-        <div class="eyebrow">
-            STEP 1 OF THE SURPRISE
-        </div>
-
-        <div class="balloon-stage">
-
-            <div class="stage-balloon"></div>
-
-            <div class="stage-balloon"></div>
-
-            <div class="stage-balloon"></div>
-
-            <div class="stage-balloon"></div>
-
-        </div>
-
-        <h2 class="script">
-
-            Balloons Released! 🎉
-
-        </h2>
-
-        <p class="subtitle">
-
-            Watch the balloons float away
-
-            <br>
-
-            because apparently your birthday
-            needs unnecessary drama. 😂
-
-        </p>
-
-        <button
-            class="btn"
-            onclick="nextScreen(3)">
-
-            UNLOCK SOME SECRETS 🃏 →
-
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- =======================================================
-     SCREEN 3 — FLIP CARDS
-======================================================= -->
-
-<section
-    class="screen"
-    id="screen3">
-
-    <div class="main-card">
-
-        <div class="eyebrow">
-            TOP SECRET 🔐
-        </div>
-
-        <h2 class="script">
-
-            Four Little Secrets... 👀
-
-        </h2>
-
-        <p class="subtitle">
-
-            Flip every card.
-
-            <br>
-
-            Don't be scared, haramkhor. 😂
-
-        </p>
-
-
-        <div class="flip-grid">
-
-
-            <!-- CARD 1 -->
-
-            <div
-                class="flip-card"
-                onclick="flipCard(this,1)">
-
-                <div class="flip-inner">
-
-                    <div class="flip-front">
-
-                        <div class="card-number">
-                            01
-                        </div>
-
-                        <div class="card-icon">
-                            🎀
-                        </div>
-
-                        <strong>
-                            TAP ME
-                        </strong>
-
-                        <small>
-                            I know something...
-                        </small>
-
-                    </div>
-
-
-                    <div class="flip-back">
-
-                        <div class="back-icon">
-                            😌
-                        </div>
-
-                        <strong>
-                            SECRET #01
-                        </strong>
-
-                        <p>
-
-                            You're a suar gwarr...
-
-                            <br>
-
-                            but unfortunately,
-                            you're also very cute. 😭❤️
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- CARD 2 -->
-
-            <div
-                class="flip-card"
-                onclick="flipCard(this,2)">
-
-                <div class="flip-inner">
-
-                    <div class="flip-front">
-
-                        <div class="card-number">
-                            02
-                        </div>
-
-                        <div class="card-icon">
-                            😂
-                        </div>
-
-                        <strong>
-                            TAP ME
-                        </strong>
-
-                        <small>
-                            Very important...
-                        </small>
-
-                    </div>
-
-
-                    <div class="flip-back">
-
-                        <div class="back-icon">
-                            😭
-                        </div>
-
-                        <strong>
-                            SECRET #02
-                        </strong>
-
-                        <p>
-
-                            Haramkhor,
-
-                            <br>
-
-                            you somehow manage to
-                            make me smile without trying.
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- CARD 3 -->
-
-            <div
-                class="flip-card"
-                onclick="flipCard(this,3)">
-
-                <div class="flip-inner">
-
-                    <div class="flip-front">
-
-                        <div class="card-number">
-                            03
-                        </div>
-
-                        <div class="card-icon">
-                            👀
-                        </div>
-
-                        <strong>
-                            TAP ME
-                        </strong>
-
-                        <small>
-                            Don't be shy...
-                        </small>
-
-                    </div>
-
-
-                    <div class="flip-back">
-
-                        <div class="back-icon">
-                            😏
-                        </div>
-
-                        <strong>
-                            SECRET #03
-                        </strong>
-
-                        <p>
-
-                            Nalla besharam,
-
-                            <br>
-
-                            why do you have to look
-                            this good for no reason? 😒
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- CARD 4 -->
-
-            <div
-                class="flip-card"
-                onclick="flipCard(this,4)">
-
-                <div class="flip-inner">
-
-                    <div class="flip-front">
-
-                        <div class="card-number">
-                            04
-                        </div>
-
-                        <div class="card-icon">
-                            💌
-                        </div>
-
-                        <strong>
-                            TAP ME
-                        </strong>
-
-                        <small>
-                            Highly classified...
-                        </small>
-
-                    </div>
-
-
-                    <div class="flip-back">
-
-                        <div class="back-icon">
-                            🥹
-                        </div>
-
-                        <strong>
-                            SECRET #04
-                        </strong>
-
-                        <p>
-
-                            You're my little baby.
-
-                            <br>
-
-                            Don't let that go to
-                            your head though. 😤❤️
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- UNLOCK -->
-
-        <div
-            class="secret-unlock"
-            id="secretUnlock">
-
-            <div class="lock-icon">
-                🔒
-            </div>
-
-            <h3>
-                One last secret is locked...
-            </h3>
-
-            <p>
-                Flip all four cards to unlock it.
-            </p>
-
-            <div class="unlock-progress">
-
-                <span id="cardCount">
-                    0
-                </span>
-
-                / 4 unlocked
-
-            </div>
-
-        </div>
-
-
-        <!-- SECRET NOTE -->
-
-        <div
-            class="hidden-note"
-            id="hiddenNote">
-
-            <div class="unlock-badge">
-                🔓 SECRET UNLOCKED
-            </div>
-
-            <div class="note-heart">
-                💗
-            </div>
-
-            <h3>
-                Okay... fine.
-            </h3>
-
-            <p>
-                I was going to keep bullying you...
-            </p>
-
-            <p>
-
-                But you flipped all four cards,
-                so now I have to admit something.
-
-            </p>
-
-            <p>
-
-                You're a suar gwarr,
-                haramkhor,
-                nalla,
-                AND besharam...
-
-            </p>
-
-            <p>
-
-                <b>
-                    but you're my favorite one. ❤️
-                </b>
-
-            </p>
-
-            <p class="highlight">
-
-                Don't get too happy though. 😭
-
-            </p>
-
-            <p class="warning">
-
-                You still have more beizzati
-                waiting for you.
-
-            </p>
-
-            <button
-                class="btn"
-                onclick="nextScreen(4)">
-
-                SHOW ME THE BEIZZATI 😂 →
-
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =======================================================
-     SCREEN 4 — PHOTOS
-======================================================= -->
-
-<section
-    class="screen"
-    id="screen4">
-
-    <div class="main-card">
-
-        <div class="eyebrow">
-            VERY IMPORTANT EVIDENCE 📸
-        </div>
-
-        <h2 class="script">
-
-            A Few Pictures
-            <br>
-            Of This Idiot
-
-        </h2>
-
-        <p class="photo-intro">
-
-            Since you decided to be handsome,
-            I had to document the evidence.
-
-            <br>
-
-            Don't get an ego after this. 😭
-
-        </p>
-
-
-        <!-- =================================================
-             PHOTO 1
-        ================================================== -->
-
-        <div class="photo-stack">
-
-
-            <div class="photo-card">
-
-                <div class="photo-frame">
-
-                    <img
-                        src="shivam1.jpg"
-                        alt="Shivam in a suit">
-
-                </div>
-
-                <div class="photo-caption">
-
-                    <div class="photo-title">
-                        Mr. Fancy 😭
-                    </div>
-
-                    <p>
-
-                        Suar gwarr ❤️
-
-                        <br>
-
-                        Why are you looking
-                        THIS handsome, little baby?
-
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <!-- =================================================
-                 PHOTO 2
-            ================================================== -->
-
-            <div class="photo-card">
-
-                <div class="photo-frame">
-
-                    <img
-                        src="shivam2.jpg"
-                        alt="Shivam close up">
-
-                </div>
-
-                <div class="photo-caption">
-
-                    <div class="photo-title">
-                        Haramkhor 😭
-                    </div>
-
-                    <p>
-
-                        Who allowed you to have
-                        this face??
-
-                        <br>
-
-                        Come here, baby. 🫵🏻❤️
-
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <!-- =================================================
-                 PHOTO 3
-            ================================================== -->
-
-            <div class="photo-card">
-
-                <div class="photo-frame">
-
-                    <img
-                        src="shivam3.jpg"
-                        alt="Shivam mirror photo">
-
-                </div>
-
-                <div class="photo-caption">
-
-                    <div class="photo-title">
-                        Nalla besharam 😂
-                    </div>
-
-                    <p>
-
-                        Bro really looked at the mirror
-                        and said:
-
-                        <br>
-
-                        “Yep. I look good.”
-
-                        <br>
-
-                        The confidence. 😭
-
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <!-- =================================================
-                 PHOTO 4
-            ================================================== -->
-
-            <div class="photo-card">
-
-                <div class="photo-frame">
-
-                    <img
-                        src="shivam4.jpg"
-                        alt="Shivam casual photo">
-
-                </div>
-
-                <div class="photo-caption">
-
-                    <div class="photo-title">
-                        My little baby 🥹
-                    </div>
-
-                    <p>
-
-                        My little besharam baby.
-
-                        <br>
-
-                        Somehow you still manage
-                        to look cute. ❤️
-
-                    </p>
-
-                </div>
-
-            </div>
-
-
-        </div>
-
-
-        <!-- PHOTO SECRET -->
-
-        <div class="photo-secret">
-
-            <div class="secret-emoji">
-                🫣
-            </div>
-
-            <p>
-
-                Okay fine...
-
-                <br>
-
-                You are actually very handsome.
-
-                <br><br>
-
-                <strong>
-                    But don't let this information
-                    get to your head, suar gwarr.
-                </strong>
-
-            </p>
-
-        </div>
-
-
-        <button
-            class="btn"
-            onclick="nextScreen(5)">
-
-            OKAY BABY, NEXT ❤️ →
-
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- =======================================================
-     SCREEN 5 — CAKE
-======================================================= -->
-
-<section
-    class="screen"
-    id="screen5">
-
-    <div class="main-card">
-
-        <div class="eyebrow">
-            NEXT CHAPTER 🎂
-        </div>
-
-        <h2>
-
-            Make A Wish,
-            <br>
-            Birthday Boy 🕯️
-
-        </h2>
-
-
-        <div class="cake-area">
-
-            <div class="cake">
-
-                <div class="cake-top">
-
-                    <div class="candle">
-
-                        <div class="flame"></div>
-
-                    </div>
-
-                    <div class="candle">
-
-                        <div class="flame"></div>
-
-                    </div>
-
-                    <div class="candle">
-
-                        <div class="flame"></div>
-
-                    </div>
-
-                </div>
-
-                <div class="cake-bottom"></div>
-
-            </div>
-
-        </div>
-
-
-        <p class="subtitle">
-
-            Close your eyes...
-
-            <br>
-
-            make a wish...
-
-            <br>
-
-            and blow the candles. 🎂
-
-        </p>
-
-
-        <button
-            class="btn"
-            id="blowBtn"
-            onclick="blowCandles()">
-
-            💨 BLOW CANDLES
-
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- =======================================================
-     SCREEN 6 — LETTER
-======================================================= -->
-
-<section
-    class="screen"
-    id="screen6">
-
-    <div class="main-card">
-
-        <div class="eyebrow">
-            A LITTLE LETTER FOR YOU 💌
-        </div>
-
-
-        <div class="letter">
-
-            <p>
-
-                My little baby ❤️
-
-            </p>
-
-            <p>
-
-                I know I spend a lot of time
-                calling you a suar gwarr,
-                haramkhor, nalla and besharam...
-
-                😭
-
-            </p>
-
-            <p>
-
-                But underneath all that bullying,
-                I hope you know how genuinely
-                special you are to me.
-
-            </p>
-
-            <p>
-
-                You have this annoying little way
-                of making ordinary moments feel
-                special.
-
-            </p>
-
-            <p>
-
-                And somehow, even when you're
-                being the biggest nalla on earth,
-                you can still make me smile.
-
-            </p>
-
-            <p>
-
-                I hope this birthday brings you
-                everything you want.
-
-                I hope you laugh a lot,
-                dream bigger,
-                and have the happiest year ahead.
-
-            </p>
-
-            <p>
-
-                And whenever life gets difficult,
-                I hope you remember that there is
-                someone here who is always
-                cheering for you. ❤️
-
-            </p>
-
-            <p>
-
-                So yes...
-
-                you're annoying.
-
-                You're dramatic.
-
-                You're a little besharam.
-
-                😂
-
-            </p>
-
-            <p>
-
-                But you're also my little baby,
-                and I wouldn't change that.
-
-            </p>
-
-            <p class="signature">
-
-                Happy Birthday, idiot. ❤️
-
-            </p>
-
-        </div>
-
-
-        <button
-            class="btn"
-            onclick="nextScreen(7)">
-
-            ONE LAST QUESTION →
-
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- =======================================================
-     SCREEN 7 — QUESTION
-======================================================= -->
-
-<section
-    class="screen"
-    id="screen7">
-
-    <div class="main-card">
-
-        <span class="big-heart">
-            🥺
-        </span>
-
-        <div class="eyebrow">
-
-            VERY IMPORTANT QUESTION
-
-        </div>
-
-
-        <div class="question">
-
-            Shivam...
-
-            <br>
-
-            will you always be
-
-            <br>
-
-            my favorite person?
-
-        </div>
-
-
-        <p class="small-text">
-
-            Choose wisely, little baby. 😌❤️
-
-        </p>
-
-
-        <div class="answer-area">
-
-            <button
-                class="btn"
-                id="yesBtn"
-                onclick="yesAnswer()">
-
-                YES ❤️
-
-            </button>
-
-
-            <button
-                class="btn secondary"
-                id="noBtn"
-                onclick="moveNoButton()">
-
-                NO 😏
-
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =======================================================
-     SCREEN 8 — FINAL
-======================================================= -->
-
-<section
-    class="screen"
-    id="screen8">
-
-    <div class="main-card">
-
-        <div class="final-heart">
-            ❤️
-        </div>
-
-
-        <h2>
-
-            I KNEW IT! 😭❤️
-
-        </h2>
-
-
-        <p class="final-message">
-
-            Happy Birthday to my favorite
-            little idiot.
-
-        </p>
-
-
-        <p class="final-message">
-
-            You're a suar gwarr,
-            haramkhor,
-            nalla,
-            besharam...
-
-            <br><br>
-
-            but you're also someone
-            I care about more than
-            I probably say enough.
-
-        </p>
-
-
-        <p class="final-message">
-
-            So here's to another year
-            of you being annoying,
-            making me laugh,
-            and being my little baby. ❤️
-
-        </p>
-
-
-        <div class="final-icons">
-
-            🎈
-            ✨
-            🎂
-            ✨
-            🎈
-
-        </div>
-
-
-        <p
-            class="script"
-            style="font-size:28px;">
-
-            Happy Birthday, baby. 💕
-
-        </p>
-
-
-        <p
-            class="small-text"
-            style="margin-top:14px;">
-
-            Now stop smiling at your phone,
-            besharam. 😂
-
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- =======================================================
-     MUSIC BUTTON
-======================================================= -->
+</p>
 
 <button
-    class="music-btn"
-    id="musicBtn"
-    onclick="toggleMusic()"
-    aria-label="Music">
+class="btn"
+onclick="nextScreen(2)">
 
-    🔇
+OPEN YOUR SURPRISE →
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     SCREEN 2
+===================================================== -->
+
+<section
+class="screen"
+id="screen2">
+
+<div class="main-card">
+
+<div class="eyebrow">
+STEP 1 OF THE SURPRISE
+</div>
+
+<div class="balloon-stage">
+
+<div class="stage-balloon"></div>
+<div class="stage-balloon"></div>
+<div class="stage-balloon"></div>
+<div class="stage-balloon"></div>
+
+</div>
+
+<h2 class="script">
+
+Balloons Released! 🎉
+
+</h2>
+
+<p class="subtitle">
+
+Watch the balloons float away
+
+<br>
+
+because apparently your birthday
+needs unnecessary drama. 😂
+
+</p>
+
+<button
+class="btn"
+onclick="nextScreen(3)">
+
+UNLOCK SOME SECRETS 🃏 →
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     SCREEN 3 — FLIP CARDS
+===================================================== -->
+
+<section
+class="screen"
+id="screen3">
+
+<div class="main-card">
+
+<div class="eyebrow">
+TOP SECRET 🔐
+</div>
+
+<h2 class="script">
+
+Four Little Secrets... 👀
+
+</h2>
+
+<p class="subtitle">
+
+Flip every card.
+
+<br>
+
+Don't be scared, haramkhor. 😂
+
+</p>
+
+
+<div class="flip-grid">
+
+
+<!-- CARD 1 -->
+
+<div
+class="flip-card"
+onclick="flipCard(this,1)">
+
+<div class="flip-inner">
+
+<div class="flip-front">
+
+<div class="card-number">
+01
+</div>
+
+<div class="card-icon">
+🎀
+</div>
+
+<strong>
+TAP ME
+</strong>
+
+<small>
+I know something...
+</small>
+
+</div>
+
+
+<div class="flip-back">
+
+<div class="back-icon">
+😌
+</div>
+
+<strong>
+SECRET #01
+</strong>
+
+<p>
+
+You're a suar gwarr...
+
+<br>
+
+but unfortunately,
+you're also very cute. 😭❤️
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- CARD 2 -->
+
+<div
+class="flip-card"
+onclick="flipCard(this,2)">
+
+<div class="flip-inner">
+
+<div class="flip-front">
+
+<div class="card-number">
+02
+</div>
+
+<div class="card-icon">
+😂
+</div>
+
+<strong>
+TAP ME
+</strong>
+
+<small>
+Very important...
+</small>
+
+</div>
+
+
+<div class="flip-back">
+
+<div class="back-icon">
+😭
+</div>
+
+<strong>
+SECRET #02
+</strong>
+
+<p>
+
+Haramkhor,
+
+<br>
+
+you somehow manage
+to make me smile without trying.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- CARD 3 -->
+
+<div
+class="flip-card"
+onclick="flipCard(this,3)">
+
+<div class="flip-inner">
+
+<div class="flip-front">
+
+<div class="card-number">
+03
+</div>
+
+<div class="card-icon">
+👀
+</div>
+
+<strong>
+TAP ME
+</strong>
+
+<small>
+Don't be shy...
+</small>
+
+</div>
+
+
+<div class="flip-back">
+
+<div class="back-icon">
+😏
+</div>
+
+<strong>
+SECRET #03
+</strong>
+
+<p>
+
+Nalla besharam,
+
+<br>
+
+why do you have to look
+this good for no reason? 😒
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- CARD 4 -->
+
+<div
+class="flip-card"
+onclick="flipCard(this,4)">
+
+<div class="flip-inner">
+
+<div class="flip-front">
+
+<div class="card-number">
+04
+</div>
+
+<div class="card-icon">
+💌
+</div>
+
+<strong>
+TAP ME
+</strong>
+
+<small>
+Highly classified...
+</small>
+
+</div>
+
+
+<div class="flip-back">
+
+<div class="back-icon">
+🥹
+</div>
+
+<strong>
+SECRET #04
+</strong>
+
+<p>
+
+You're my little baby.
+
+<br>
+
+Don't let that go to
+your head though. 😤❤️
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<!-- LOCK -->
+
+<div
+class="secret-unlock"
+id="secretUnlock">
+
+<div class="lock-icon">
+🔒
+</div>
+
+<h3>
+One last secret is locked...
+</h3>
+
+<p>
+Flip all four cards to unlock it.
+</p>
+
+<div class="unlock-progress">
+
+<span id="cardCount">
+0
+</span>
+
+/ 4 unlocked
+
+</div>
+
+</div>
+
+
+<!-- UNLOCKED NOTE -->
+
+<div
+class="hidden-note"
+id="hiddenNote">
+
+<div class="unlock-badge">
+🔓 SECRET UNLOCKED
+</div>
+
+<div class="note-heart">
+💗
+</div>
+
+<h3>
+Okay... fine.
+</h3>
+
+<p>
+I was going to keep bullying you...
+</p>
+
+<p>
+
+But you flipped all four cards,
+so now I have to admit something.
+
+</p>
+
+<p>
+
+You're a suar gwarr,
+haramkhor,
+nalla,
+AND besharam...
+
+</p>
+
+<p>
+
+<b>
+but you're my favorite one. ❤️
+</b>
+
+</p>
+
+<p class="highlight">
+
+Don't get too happy though. 😭
+
+</p>
+
+<button
+class="btn"
+onclick="nextScreen(4)">
+
+SHOW ME THE BEIZZATI 😂 →
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     SCREEN 4 — PHOTOS
+===================================================== -->
+
+<section
+class="screen"
+id="screen4">
+
+<div class="main-card">
+
+<div class="eyebrow">
+VERY IMPORTANT EVIDENCE 📸
+</div>
+
+<h2 class="script">
+
+A Few Pictures
+<br>
+Of This Idiot
+
+</h2>
+
+<p class="photo-intro">
+
+Since you decided to be handsome,
+I had to document the evidence.
+
+<br>
+
+Don't get an ego after this. 😭
+
+</p>
+
+
+<div class="photo-stack">
+
+
+<!-- PHOTO 1 -->
+
+<div class="photo-card">
+
+<div class="photo-frame">
+
+<img
+src="shivam1.png"
+alt="Shivam in a suit">
+
+</div>
+
+<div class="photo-caption">
+
+<div class="photo-title">
+Mr. Fancy 😭
+</div>
+
+<p>
+
+Suar gwarr ❤️
+
+<br>
+
+Why are you looking
+THIS handsome, little baby?
+
+</p>
+
+</div>
+
+</div>
+
+
+<!-- PHOTO 2 -->
+
+<div class="photo-card">
+
+<div class="photo-frame">
+
+<img
+src="shivam2.png"
+alt="Shivam close up">
+
+</div>
+
+<div class="photo-caption">
+
+<div class="photo-title">
+Haramkhor 😭
+</div>
+
+<p>
+
+Who allowed you to have
+this face??
+
+<br>
+
+Come here, baby. 🫵🏻❤️
+
+</p>
+
+</div>
+
+</div>
+
+
+<!-- PHOTO 3 -->
+
+<div class="photo-card">
+
+<div class="photo-frame">
+
+<img
+src="shivam3.png"
+alt="Shivam mirror photo">
+
+</div>
+
+<div class="photo-caption">
+
+<div class="photo-title">
+Nalla besharam 😂
+</div>
+
+<p>
+
+Bro really looked at the mirror
+and said:
+
+<br>
+
+"Yep. I look good."
+
+<br>
+
+The confidence. 😭
+
+</p>
+
+</div>
+
+</div>
+
+
+<!-- PHOTO 4 -->
+
+<div class="photo-card">
+
+<div class="photo-frame">
+
+<img
+src="shivam4.png"
+alt="Shivam casual photo">
+
+</div>
+
+<div class="photo-caption">
+
+<div class="photo-title">
+My little baby 🥹
+</div>
+
+<p>
+
+My little besharam baby.
+
+<br>
+
+Somehow you still manage
+to look cute. ❤️
+
+</p>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<!-- PHOTO SECRET -->
+
+<div class="photo-secret">
+
+<div class="secret-emoji">
+🫣
+</div>
+
+<p>
+
+Okay fine...
+
+<br>
+
+You are actually very handsome.
+
+<br><br>
+
+<strong>
+But don't let this information
+get to your head, suar gwarr.
+</strong>
+
+</p>
+
+</div>
+
+
+<button
+class="btn"
+onclick="nextScreen(5)">
+
+OKAY BABY, NEXT ❤️ →
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     SCREEN 5 — CAKE
+===================================================== -->
+
+<section
+class="screen"
+id="screen5">
+
+<div class="main-card">
+
+<div class="eyebrow">
+NEXT CHAPTER 🎂
+</div>
+
+<h2>
+
+Make A Wish,
+<br>
+Birthday Boy 🕯️
+
+</h2>
+
+
+<div class="cake-area">
+
+<div class="cake">
+
+<div class="cake-top">
+
+<div class="candle">
+
+<div class="flame"></div>
+
+</div>
+
+<div class="candle">
+
+<div class="flame"></div>
+
+</div>
+
+<div class="candle">
+
+<div class="flame"></div>
+
+</div>
+
+</div>
+
+<div class="cake-bottom"></div>
+
+</div>
+
+</div>
+
+
+<p class="subtitle">
+
+Close your eyes...
+
+<br>
+
+make a wish...
+
+<br>
+
+and blow the candles. 🎂
+
+</p>
+
+
+<button
+class="btn"
+id="blowBtn"
+onclick="blowCandles()">
+
+💨 BLOW CANDLES
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     SCREEN 6 — LETTER
+===================================================== -->
+
+<section
+class="screen"
+id="screen6">
+
+<div class="main-card">
+
+<div class="eyebrow">
+A LITTLE LETTER FOR YOU 💌
+</div>
+
+
+<div class="letter">
+
+<p>
+My little baby ❤️
+</p>
+
+<p>
+
+I know I spend a lot of time
+calling you a suar gwarr,
+haramkhor, nalla and besharam...
+
+😭
+
+</p>
+
+<p>
+
+But underneath all that bullying,
+I hope you know how genuinely
+special you are to me.
+
+</p>
+
+<p>
+
+You have this annoying little way
+of making ordinary moments feel
+special.
+
+</p>
+
+<p>
+
+And somehow, even when you're
+being the biggest nalla on earth,
+you can still make me smile.
+
+</p>
+
+<p>
+
+I hope this birthday brings you
+everything you want.
+
+I hope you laugh a lot,
+dream bigger,
+and have the happiest year ahead.
+
+</p>
+
+<p>
+
+And whenever life gets difficult,
+I hope you remember that there is
+someone here who is always
+cheering for you. ❤️
+
+</p>
+
+<p>
+
+So yes...
+
+you're annoying.
+
+You're dramatic.
+
+You're a little besharam.
+
+😂
+
+</p>
+
+<p>
+
+But you're also my little baby,
+and I wouldn't change that.
+
+</p>
+
+<p class="signature">
+
+Happy Birthday, idiot. ❤️
+
+</p>
+
+</div>
+
+
+<button
+class="btn"
+onclick="nextScreen(7)">
+
+ONE LAST QUESTION →
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     SCREEN 7 — QUESTION
+===================================================== -->
+
+<section
+class="screen"
+id="screen7">
+
+<div class="main-card">
+
+<span class="big-heart">
+🥺
+</span>
+
+<div class="eyebrow">
+VERY IMPORTANT QUESTION
+</div>
+
+
+<div class="question">
+
+Shivam...
+
+<br>
+
+will you always be
+
+<br>
+
+my favorite person?
+
+</div>
+
+
+<p class="small-text">
+
+Choose wisely, little baby. 😌❤️
+
+</p>
+
+
+<div class="answer-area">
+
+<button
+class="btn"
+onclick="yesAnswer()">
+
+YES ❤️
+
+</button>
+
+
+<button
+class="btn secondary"
+id="noBtn"
+onclick="moveNoButton()">
+
+NO 😏
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     SCREEN 8 — FINAL
+===================================================== -->
+
+<section
+class="screen"
+id="screen8">
+
+<div class="main-card">
+
+<div class="final-heart">
+❤️
+</div>
+
+
+<h2>
+
+I KNEW IT! 😭❤️
+
+</h2>
+
+
+<p class="final-message">
+
+Happy Birthday to my favorite
+little idiot.
+
+</p>
+
+
+<p class="final-message">
+
+You're a suar gwarr,
+haramkhor,
+nalla,
+besharam...
+
+<br><br>
+
+but you're also someone
+I care about more than
+I probably say enough.
+
+</p>
+
+
+<p class="final-message">
+
+So here's to another year
+of you being annoying,
+making me laugh,
+and being my little baby. ❤️
+
+</p>
+
+
+<div class="final-icons">
+
+🎈
+✨
+🎂
+✨
+🎈
+
+</div>
+
+
+<p
+class="script"
+style="font-size:28px;">
+
+Happy Birthday, baby. 💕
+
+</p>
+
+
+<p
+class="small-text"
+style="margin-top:14px;">
+
+Now stop smiling at your phone,
+besharam. 😂
+
+</p>
+
+</div>
+
+</section>
+
+
+<!-- MUSIC BUTTON -->
+
+<button
+class="music-btn"
+onclick="toggleMusic()"
+id="musicBtn">
+
+🔇
 
 </button>
 
@@ -2933,12 +2640,11 @@ h2 {
 
 <script>
 
-/* =========================================================
-   SCREEN CONTROL
-========================================================= */
+/* =========================
+   SCREEN NAVIGATION
+========================= */
 
 let currentScreen = 1;
-
 
 function nextScreen(number) {
 
@@ -2952,42 +2658,32 @@ function nextScreen(number) {
             "screen" + number
         );
 
-
-    if (!newScreen) {
-        return;
-    }
-
+    if (!newScreen) return;
 
     oldScreen.classList.remove(
         "active"
     );
 
-
     newScreen.classList.add(
         "active"
     );
 
-
     currentScreen = number;
-
 
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
 
-
-    createConfetti(15);
-
+    createConfetti(18);
 }
 
 
-/* =========================================================
+/* =========================
    CONFETTI
-========================================================= */
+========================= */
 
 const confettiColors = [
-
     "#d95470",
     "#e3b452",
     "#9c2340",
@@ -2995,9 +2691,7 @@ const confettiColors = [
     "#c9a15d",
     "#b64a5f",
     "#f0c8a8"
-
 ];
-
 
 function createConfetti(amount = 30) {
 
@@ -3005,7 +2699,6 @@ function createConfetti(amount = 30) {
         document.getElementById(
             "confetti"
         );
-
 
     for (
         let i = 0;
@@ -3018,14 +2711,11 @@ function createConfetti(amount = 30) {
                 "div"
             );
 
-
         piece.className =
             "confetti";
 
-
         piece.style.left =
             Math.random() * 100 + "%";
-
 
         piece.style.background =
             confettiColors[
@@ -3035,56 +2725,38 @@ function createConfetti(amount = 30) {
                 )
             ];
 
-
         piece.style.animationDuration =
             (3 + Math.random() * 5)
             + "s";
 
-
         piece.style.animationDelay =
-            Math.random() * 1.5
+            Math.random() * 1.2
             + "s";
-
-
-        piece.style.transform =
-            `rotate(${Math.random() * 360}deg)`;
-
 
         container.appendChild(
             piece
         );
 
-
         setTimeout(
-            () => {
-
-                piece.remove();
-
-            },
+            () => piece.remove(),
             9000
         );
-
     }
-
 }
 
 
-/* =========================================================
+/* =========================
    START CONFETTI
-========================================================= */
+========================= */
 
 window.addEventListener(
     "load",
-    () => {
+    function() {
 
         createConfetti(30);
 
         setTimeout(
-            () => {
-
-                createConfetti(15);
-
-            },
+            () => createConfetti(15),
             1800
         );
 
@@ -3092,13 +2764,12 @@ window.addEventListener(
 );
 
 
-/* =========================================================
+/* =========================
    FLIP CARDS
-========================================================= */
+========================= */
 
 let flippedCards =
     new Set();
-
 
 function flipCard(card, number) {
 
@@ -3107,76 +2778,53 @@ function flipCard(card, number) {
             "flipped"
         )
     ) {
-
         return;
-
     }
-
 
     card.classList.add(
         "flipped"
     );
 
-
     flippedCards.add(
         number
     );
 
-
     createConfetti(8);
 
-
     updateCardProgress();
-
 }
 
 
-/* =========================================================
+/* =========================
    CARD PROGRESS
-========================================================= */
+========================= */
 
 function updateCardProgress() {
 
-    const count =
-        document.getElementById(
-            "cardCount"
-        );
-
-
-    count.textContent =
+    document.getElementById(
+        "cardCount"
+    ).textContent =
         flippedCards.size;
-
 
     if (
         flippedCards.size === 4
     ) {
 
         setTimeout(
-            () => {
+            function() {
 
-                const locked =
-                    document.getElementById(
-                        "secretUnlock"
-                    );
-
-
-                const note =
-                    document.getElementById(
-                        "hiddenNote"
-                    );
-
-
-                locked.style.display =
+                document.getElementById(
+                    "secretUnlock"
+                ).style.display =
                     "none";
 
-
-                note.classList.add(
+                document.getElementById(
+                    "hiddenNote"
+                ).classList.add(
                     "show"
                 );
 
-
                 createConfetti(60);
-
 
                 if (
                     navigator.vibrate
@@ -3195,15 +2843,13 @@ function updateCardProgress() {
             },
             650
         );
-
     }
-
 }
 
 
-/* =========================================================
+/* =========================
    BLOW CANDLES
-========================================================= */
+========================= */
 
 function blowCandles() {
 
@@ -3212,9 +2858,8 @@ function blowCandles() {
             ".flame"
         );
 
-
     flames.forEach(
-        flame => {
+        function(flame) {
 
             flame.classList.add(
                 "off"
@@ -3223,48 +2868,39 @@ function blowCandles() {
         }
     );
 
-
-    createConfetti(50);
-
+    createConfetti(60);
 
     const button =
         document.getElementById(
             "blowBtn"
         );
 
-
     button.innerHTML =
         "🎉 WISH MADE!";
 
-
-    button.disabled =
-        true;
-
+    button.disabled = true;
 
     button.style.opacity =
         ".7";
 
-
     setTimeout(
-        () => {
+        function() {
 
             nextScreen(6);
 
         },
         1700
     );
-
 }
 
 
-/* =========================================================
-   YES ANSWER
-========================================================= */
+/* =========================
+   YES BUTTON
+========================= */
 
 function yesAnswer() {
 
-    createConfetti(90);
-
+    createConfetti(100);
 
     if (
         navigator.vibrate
@@ -3278,18 +2914,15 @@ function yesAnswer() {
 
     }
 
-
     nextScreen(8);
-
 }
 
 
-/* =========================================================
+/* =========================
    NO BUTTON
-========================================================= */
+========================= */
 
 let noMoves = 0;
-
 
 function moveNoButton() {
 
@@ -3298,81 +2931,59 @@ function moveNoButton() {
             "noBtn"
         );
 
-
     noMoves++;
 
-
     const x =
-        (Math.random() * 150) - 75;
-
+        Math.random() * 150 - 75;
 
     const y =
-        (Math.random() * 90) - 45;
-
+        Math.random() * 90 - 45;
 
     button.style.transform =
         `translate(${x}px, ${y}px)`;
 
-
-    if (
-        noMoves === 1
-    ) {
+    if (noMoves === 1) {
 
         button.innerHTML =
             "ARE YOU SURE? 👀";
 
     }
 
-
-    if (
-        noMoves === 2
-    ) {
+    else if (noMoves === 2) {
 
         button.innerHTML =
             "REALLY? 😭";
 
     }
 
-
-    if (
-        noMoves === 3
-    ) {
+    else if (noMoves === 3) {
 
         button.innerHTML =
             "THINK AGAIN 😤";
 
     }
 
-
-    if (
-        noMoves === 4
-    ) {
+    else if (noMoves === 4) {
 
         button.innerHTML =
             "NOPE 😂";
 
     }
 
-
-    if (
-        noMoves >= 5
-    ) {
+    else {
 
         button.innerHTML =
             "YOU CAN'T ESCAPE 😭";
 
     }
-
 }
 
 
-/* =========================================================
+/* =========================
    MUSIC
-========================================================= */
+========================= */
 
-let musicPlaying =
-    false;
-
+let musicPlaying = false;
 
 function toggleMusic() {
 
@@ -3381,87 +2992,39 @@ function toggleMusic() {
             "music"
         );
 
-
     const button =
         document.getElementById(
             "musicBtn"
         );
 
-
     if (!music) {
 
         alert(
-            "Add birthday.mp3 beside index.html and uncomment the audio section."
+            "Music is not added yet. You can add an audio file later."
         );
 
         return;
-
     }
 
-
-    if (
-        musicPlaying
-    ) {
+    if (musicPlaying) {
 
         music.pause();
 
-        musicPlaying =
-            false;
+        musicPlaying = false;
 
-        button.innerHTML =
-            "🔇";
+        button.innerHTML = "🔇";
 
-    }
-
-    else {
+    } else {
 
         music.play();
 
-        musicPlaying =
-            true;
+        musicPlaying = true;
 
-        button.innerHTML =
-            "🔊";
-
+        button.innerHTML = "🔊";
     }
-
 }
-
-
-/* =========================================================
-   MOBILE DOUBLE-TAP ZOOM PREVENTION
-========================================================= */
-
-let lastTouchEnd = 0;
-
-
-document.addEventListener(
-    "touchend",
-    function(event) {
-
-        const now =
-            Date.now();
-
-
-        if (
-            now - lastTouchEnd <= 300
-        ) {
-
-            event.preventDefault();
-
-        }
-
-
-        lastTouchEnd =
-            now;
-
-    },
-    false
-);
 
 </script>
 
-
 </body>
-
 </html>
