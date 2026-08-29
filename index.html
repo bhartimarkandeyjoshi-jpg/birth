@@ -934,6 +934,7 @@ h2 {
 
 /* =========================
    PHOTO SECTION
+   FIXED FOR ALL PHOTO RATIOS
 ========================= */
 
 .photo-intro {
@@ -961,7 +962,9 @@ h2 {
 
     flex-direction: column;
 
-    gap: 23px;
+    gap: 28px;
+
+    overflow: visible;
 }
 
 .photo-card {
@@ -983,6 +986,10 @@ h2 {
 
     transition:
         transform .25s ease;
+
+    height: auto;
+
+    overflow: visible;
 }
 
 .photo-card:nth-child(1) {
@@ -1007,27 +1014,61 @@ h2 {
         translateY(-3px);
 }
 
+
+/* =========================
+   PHOTO FRAME
+========================= */
+
+/*
+   NO aspect-ratio here.
+
+   This is the important fix.
+   Portrait photos remain portrait.
+   Landscape photos remain landscape.
+*/
+
 .photo-frame {
 
     width: 100%;
 
-    aspect-ratio: 4 / 3;
+    height: auto;
 
     overflow: hidden;
 
-    background: #f1dfdf;
+    background:
+        linear-gradient(
+            135deg,
+            #f9e9e8,
+            #f4dfe1
+        );
 
     position: relative;
+
+    border-radius: 2px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
 }
+
+
+/* =========================
+   PHOTO IMAGE
+========================= */
 
 .photo-frame img {
 
     width: 100%;
-    height: 100%;
+
+    height: auto;
+
+    max-width: 100%;
 
     display: block;
 
-    object-fit: cover;
+    object-fit: contain;
 
     object-position: center;
 
@@ -1039,8 +1080,13 @@ h2 {
 .photo-frame img {
 
     transform:
-        scale(1.03);
+        scale(1.025);
 }
+
+
+/* =========================
+   PHOTO CAPTION
+========================= */
 
 .photo-caption {
 
@@ -1069,7 +1115,14 @@ h2 {
     font-size: 11.5px;
 
     line-height: 1.5;
+
+    margin: 0;
 }
+
+
+/* =========================
+   PHOTO SECRET
+========================= */
 
 .photo-secret {
 
@@ -1103,6 +1156,8 @@ h2 {
     font-size: 12px;
 
     line-height: 1.6;
+
+    margin: 0;
 }
 
 .photo-secret strong {
@@ -1753,7 +1808,7 @@ SECRET #01
 
 <p>
 
- suar gwarr...
+suar gwarr...
 
 <br>
 
@@ -2170,7 +2225,7 @@ Nalla besharam 😂
 
 <br>
 
- "beshrmm."
+"beshrmm."
 
 <br>
 
@@ -2428,8 +2483,6 @@ So yes...
 you're annoying.
 
 You're dramatic.
-
-
 
 😂
 
