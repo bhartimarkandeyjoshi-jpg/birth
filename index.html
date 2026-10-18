@@ -490,6 +490,9 @@ let isRecording = false;
 let recordedAudioUrl = null;
 let finalMessage = "";
 let recordingFinished = false;
+let speechRecognition = null;
+let spokenTranscript = "";
+let speechRecognitionAvailable = false;
 
 const recordBtn = document.getElementById("recordBtn");
 const voiceStatus = document.getElementById("voiceStatus");
@@ -514,15 +517,69 @@ function showRecordingFailure(message) {
         audioStream = null;
     }
 
-    voiceStatus.textContent = message + " Attempt " + recordingAttempts + " of 2.";
+    voiceResult.textContent = message;
+    voiceResult.classList.add("show");
+    continueBtn.style.display = "none";
+    recordingFinished = false;
+    finalMessage = "";
+
+    voiceStatus.textContent = "Attempt " + recordingAttempts + " of 2.";
 
     if (recordingAttempts >= 2) {
         retryBtn.style.display = "none";
         recordBtn.style.display = "none";
         fallbackBox.classList.add("show");
-        voiceStatus.textContent = "Recording didn't work twice. You can write your message below instead. ❤️";
+        voiceStatus.textContent = "Recording didn't work twice. Write the exact message below to continue. ❤️";
     } else {
         retryBtn.style.display = "inline-flex";
+    }
+}
+
+function normalizeSpokenWords(text) {
+    return text.toLowerCase()
+        .replace(/[^\p{L}\p{N}\s]/gu, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
+function beginSpeechRecognition() {
+    const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition;
+    spokenTranscript = "";
+    speechRecognition = null;
+    speechRecognitionAvailable = false;
+
+    if (!SpeechRecognitionAPI) return;
+
+    try {
+        speechRecognition = new SpeechRecognitionAPI();
+        speechRecognition.lang = "en-US";
+        speechRecognition.continuous = true;
+        speechRecognition.interimResults = false;
+        speechRecognition.onresult = function(event) {
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                if (event.results[i].isFinal) {
+                    spokenTranscript += " " + event.results[i][0].transcript;
+                }
+            }
+        };
+        speechRecognition.onerror = function() {
+            // If speech can't be understood, the transcript check below asks him to try again.
+        };
+        speechRecognitionAvailable = true;
+        speechRecognition.start();
+    } catch (error) {
+        speechRecognition = null;
+        speechRecognitionAvailable = false;
+    }
+}
+
+function stopSpeechRecognition() {
+    if (speechRecognition) {
+        try {
+            speechRecognition.stop();
+        } catch (error) {
+            // Recognition may already have stopped.
+        }
     }
 }
 
@@ -534,16 +591,18 @@ async function toggleRecording() {
 
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia ||
         typeof MediaRecorder === "undefined") {
-        showRecordingFailure("Voice recording isn't supported in this browser or page.");
+        showRecordingFailure("ehh sahii se bol");
         return;
     }
 
     recordBtn.disabled = true;
     voiceStatus.textContent = "Requesting microphone permission...";
+    voiceResult.classList.remove("show");
 
     try {
         audioStream = await navigator.mediaDevices.getUserMedia({audio: true});
         audioChunks = [];
+        spokenTranscript = "";
 
         let options = {};
         if (MediaRecorder.isTypeSupported("audio/webm;codecs=opus")) {
@@ -561,50 +620,70 @@ async function toggleRecording() {
         };
 
         mediaRecorder.onerror = function() {
-            showRecordingFailure("Something went wrong while recording.");
+            stopSpeechRecognition();
+            showRecordingFailure("ehh sahii se bol");
         };
 
         mediaRecorder.onstop = function() {
+            stopSpeechRecognition();
+
             if (audioChunks.length === 0) {
-                showRecordingFailure("No audio was captured. Please try again.");
+                showRecordingFailure("nunu it's empty");
                 return;
             }
 
-            const blob = new Blob(audioChunks, {
-                type: mediaRecorder.mimeType || "audio/webm"
-            });
+            // Give speech recognition a moment to deliver its final transcript.
+            setTimeout(function() {
+                const spoken = normalizeSpokenWords(spokenTranscript);
 
-            if (recordedAudioUrl) URL.revokeObjectURL(recordedAudioUrl);
-            recordedAudioUrl = URL.createObjectURL(blob);
-            audioPlayer.src = recordedAudioUrl;
-            audioPlayer.classList.add("show");
+                if (!spoken) {
+                    showRecordingFailure("nunu it's empty");
+                    return;
+                }
 
-            voiceResult.textContent = "Your voice message has been recorded! You can listen to it below. ❤️";
-            voiceResult.classList.add("show");
+                if (!speechRecognitionAvailable || spoken !== "i love you more baby") {
+                    showRecordingFailure("ehh sahii se bol");
+                    return;
+                }
 
-            voiceStatus.textContent = "Recording complete! Your message is ready to listen to.";
-            recordBtn.style.display = "none";
-            retryBtn.style.display = "none";
-            continueBtn.style.display = "inline-flex";
-            recordingFinished = true;
+                const blob = new Blob(audioChunks, {
+                    type: mediaRecorder.mimeType || "audio/webm"
+                });
 
-            createConfetti(35);
-            stopMicrophoneTracks();
+                if (recordedAudioUrl) URL.revokeObjectURL(recordedAudioUrl);
+                recordedAudioUrl = URL.createObjectURL(blob);
+                audioPlayer.src = recordedAudioUrl;
+                audioPlayer.classList.add("show");
+
+                voiceResult.textContent = "That's it, baby! ❤️ You said it properly. You can listen below.";
+                voiceResult.classList.add("show");
+
+                voiceStatus.textContent = "Recording complete! Your message is ready to listen to.";
+                recordBtn.style.display = "none";
+                retryBtn.style.display = "none";
+                fallbackBox.classList.remove("show");
+                continueBtn.style.display = "inline-flex";
+                recordingFinished = true;
+
+                createConfetti(35);
+                stopMicrophoneTracks();
+            }, 500);
         };
 
         mediaRecorder.start();
+        beginSpeechRecognition();
         isRecording = true;
         recordBtn.disabled = false;
         recordBtn.innerHTML = "⏹️ STOP RECORDING";
         recordingIndicator.classList.add("show");
-        voiceStatus.textContent = "Go on, baby! I'm listening. ❤️";
+        voiceStatus.textContent = "Say: “I love you more baby” ❤️";
         retryBtn.style.display = "none";
     } catch (error) {
-        let message = "Microphone access failed.";
+        let message = "ehh sahii se bol";
         if (error && error.name === "NotAllowedError") {
-            message = "Microphone permission was denied.";
+            message = "ehh sahii se bol";
         } else if (error && error.name === "NotFoundError") {
-            message = "No microphone was found.";
+            message = "nunu it's empty";
         }
         showRecordingFailure(message);
     }
@@ -613,7 +692,7 @@ async function toggleRecording() {
 function stopRecording() {
     if (mediaRecorder && mediaRecorder.state === "recording") {
         recordBtn.disabled = true;
-        recordBtn.innerHTML = "SAVING RECORDING...";
+        recordBtn.innerHTML = "CHECKING YOUR WORDS...";
         mediaRecorder.stop();
     }
     isRecording = false;
@@ -632,24 +711,35 @@ function retryRecording() {
     recordBtn.style.display = "inline-flex";
     recordBtn.disabled = false;
     recordBtn.innerHTML = "🎙️ START RECORDING";
-    voiceStatus.textContent = "Let's try once more. Allow microphone access if asked. ❤️";
+    voiceStatus.textContent = "Let's try once more. Say “I love you more baby”. ❤️";
+    voiceResult.classList.remove("show");
+    audioPlayer.classList.remove("show");
 }
 
 function submitTypedMessage() {
     const typed = document.getElementById("typedMessage").value.trim();
 
     if (!typed) {
-        document.getElementById("typedMessage").value = "I love you more baby ❤️";
+        voiceResult.textContent = "ohh sahii likhh";
+        voiceResult.classList.add("show");
+        continueBtn.style.display = "none";
+        return;
     }
 
-    finalMessage = document.getElementById("typedMessage").value.trim() || "I love you more baby ❤️";
+    if (typed !== "I love you more baby ❤️") {
+        voiceResult.textContent = "ohh sahii likhh";
+        voiceResult.classList.add("show");
+        continueBtn.style.display = "none";
+        return;
+    }
 
-    voiceResult.textContent = "Your message: " + finalMessage;
+    finalMessage = typed;
+    voiceResult.textContent = "Your message: " + finalMessage + " ❤️";
     voiceResult.classList.add("show");
 
     fallbackBox.classList.remove("show");
     continueBtn.style.display = "inline-flex";
-    voiceStatus.textContent = "Message saved for this page. ❤️";
+    voiceStatus.textContent = "Message accepted, baby. ❤️";
 
     createConfetti(35);
 }
@@ -657,7 +747,10 @@ function submitTypedMessage() {
 function finishVoicePage() {
     if (isRecording && mediaRecorder && mediaRecorder.state === "recording") {
         stopRecording();
-        setTimeout(() => nextScreen(9), 500);
+        return;
+    }
+
+    if (!recordingFinished && finalMessage !== "I love you more baby ❤️") {
         return;
     }
 
@@ -675,6 +768,7 @@ function finishVoicePage() {
 
     nextScreen(9);
 }
+
 
 /* MUSIC BUTTON */
 let musicPlaying = false;
