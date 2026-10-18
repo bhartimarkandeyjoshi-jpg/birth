@@ -3,117 +3,160 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Happy Birthday ❤️</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{min-height:100vh;overflow-x:hidden;font-family:Georgia,"Times New Roman",serif;color:#3b2529;background:repeating-linear-gradient(90deg,#fff7f4 0,#fff7f4 35px,#f6e7e3 35px,#f6e7e3 70px)}
-#app{min-height:100vh}
-.balloon{position:fixed;bottom:-120px;width:45px;height:60px;border-radius:50%;opacity:.65;z-index:1;pointer-events:none;animation:float 13s linear infinite}
-.balloon:after{content:"";position:absolute;width:1px;height:80px;background:#777;left:50%;top:58px}
-.pink{background:#d95772}.red{background:#9e2341}.yellow{background:#dfbd69}
-.one{left:5%}.two{right:5%;animation-delay:4s}.three{left:25%;animation-delay:7s}.four{right:25%;animation-delay:2s}
-@keyframes float{to{transform:translateY(-115vh) rotate(5deg)}}
+body{min-height:100vh;overflow-x:hidden;font-family:Georgia,"Times New Roman",serif;color:#3b2529;background:repeating-linear-gradient(90deg,#fff7f4 0px,#fff7f4 35px,#f6e7e3 35px,#f6e7e3 70px)}
+#app{min-height:100vh;position:relative}
+
+.balloon{position:fixed;bottom:-120px;width:45px;height:60px;border-radius:50% 50% 48% 48%;opacity:.65;z-index:1;pointer-events:none;animation:balloonFloat 13s linear infinite}
+.balloon::after{content:"";position:absolute;width:1px;height:80px;background:#777;left:50%;top:58px}
+.balloon.pink{background:#d95772}.balloon.red{background:#9e2341}.balloon.yellow{background:#dfbd69}
+.balloon.one{left:5%}.balloon.two{right:5%;animation-delay:4s}.balloon.three{left:25%;animation-delay:7s}.balloon.four{right:25%;animation-delay:2s}
+@keyframes balloonFloat{0%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-50vh) rotate(5deg)}100%{transform:translateY(-115vh) rotate(-5deg)}}
+
 .confetti-container{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:100}
-.confetti{position:absolute;top:-20px;width:7px;height:13px;border-radius:2px;animation:fall linear forwards}
-@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+.confetti{position:absolute;top:-20px;width:7px;height:13px;border-radius:2px;animation:confettiFall linear forwards}
+@keyframes confettiFall{from{transform:translateY(-20px) rotate(0)}to{transform:translateY(110vh) rotate(720deg)}}
+
 .screen{display:none;min-height:100vh;min-height:100svh;padding:18px 12px 30px;align-items:center;justify-content:center;position:relative;z-index:5}
-.screen.active{display:flex;animation:screenIn .5s ease}
-@keyframes screenIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
-.main-card{width:min(100%,460px);max-height:calc(100svh - 25px);overflow-y:auto;overflow-x:hidden;padding:28px 18px 26px;background:linear-gradient(#fff,#fff9f7);border:3px solid #332527;border-radius:28px;box-shadow:7px 8px 0 #332527,0 18px 45px #4b1e2829;text-align:center;position:relative}
+.screen.active{display:flex;animation:screenIn .6s ease}
+@keyframes screenIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+.main-card{width:min(100%,460px);max-height:calc(100svh - 25px);overflow-y:auto;overflow-x:hidden;padding:28px 18px 26px;background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,249,247,.98));border:3px solid #332527;border-radius:28px;box-shadow:7px 8px 0 #332527,0 18px 45px rgba(75,30,40,.16);text-align:center;position:relative}
 .main-card::-webkit-scrollbar{width:4px}.main-card::-webkit-scrollbar-thumb{background:#d89aa7;border-radius:10px}
+
 .eyebrow{font-family:Arial,sans-serif;font-size:10px;font-weight:800;letter-spacing:1.7px;color:#9b2946;text-transform:uppercase;margin-bottom:10px}
 h1{color:#8e1835;font-size:clamp(35px,9vw,49px);line-height:1.05;margin-bottom:8px}
 h2{color:#8e1835;font-size:clamp(27px,7vw,38px);line-height:1.12;margin-bottom:12px}
 .script{font-family:"Brush Script MT","Segoe Script",cursive;font-style:italic;color:#8e1835}
 .subtitle{max-width:360px;margin:0 auto 20px;color:#5d4649;font-size:15px;line-height:1.65}
 .small-text{color:#765b60;font-size:12px;line-height:1.6}
-.btn{display:inline-flex;align-items:center;justify-content:center;min-width:190px;min-height:54px;padding:12px 22px;border:3px solid #332527;border-radius:35px;background:#981b3c;color:white;font-family:Arial,sans-serif;font-size:13px;font-weight:800;letter-spacing:.5px;cursor:pointer;box-shadow:0 5px 0 #332527;transition:.18s;position:relative;z-index:20}
-.btn:hover{background:#b02248}.btn:active{transform:translateY(4px);box-shadow:0 1px #332527}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;min-width:190px;min-height:54px;padding:12px 22px;border:3px solid #332527;border-radius:35px;background:#981b3c;color:white;font-family:Arial,sans-serif;font-size:13px;font-weight:800;letter-spacing:.5px;cursor:pointer;box-shadow:0 5px 0 #332527;transition:.18s ease;position:relative;z-index:20}
+.btn:hover{background:#b02248}.btn:active{transform:translateY(4px);box-shadow:0 1px 0 #332527}
 .btn.secondary{background:white;color:#8e1835}
-.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:disabled{cursor:not-allowed;opacity:.65}
+
 .big-heart{display:block;font-size:53px;margin-bottom:9px;animation:heartbeat 1.4s infinite}
 @keyframes heartbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.14)}30%{transform:scale(1)}}
-.intro-icons,.final-icons{display:flex;justify-content:center;gap:12px;font-size:27px;margin:10px 0 18px}
+.intro-icons{display:flex;justify-content:center;gap:12px;font-size:27px;margin:10px 0 18px}
+
 .balloon-stage{width:100%;height:150px;position:relative;margin:5px auto 10px}
-.stage-balloon{position:absolute;bottom:15px;width:52px;height:68px;border-radius:50%;animation:bob 2.5s ease-in-out infinite}
-.stage-balloon:after{content:"";position:absolute;width:1px;height:70px;background:#777;top:65px;left:50%}
-.stage-balloon:nth-child(1){left:7%;background:#d95772}.stage-balloon:nth-child(2){left:31%;background:#e4b65e;animation-delay:.3s}.stage-balloon:nth-child(3){right:31%;background:#a92040;animation-delay:.7s}.stage-balloon:nth-child(4){right:7%;background:#c98798;animation-delay:1s}
-@keyframes bob{50%{transform:translateY(-13px) rotate(3deg)}}
+.stage-balloon{position:absolute;bottom:15px;width:52px;height:68px;border-radius:50% 50% 48% 48%;animation:balloonBob 2.5s ease-in-out infinite}
+.stage-balloon::after{content:"";position:absolute;width:1px;height:70px;background:#777;top:65px;left:50%}
+.stage-balloon:nth-child(1){left:7%;background:#d95772}
+.stage-balloon:nth-child(2){left:31%;background:#e4b65e;animation-delay:.3s}
+.stage-balloon:nth-child(3){right:31%;background:#a92040;animation-delay:.7s}
+.stage-balloon:nth-child(4){right:7%;background:#c98798;animation-delay:1s}
+@keyframes balloonBob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-13px) rotate(3deg)}}
+
 .flip-grid{width:100%;max-width:390px;margin:16px auto 13px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 .flip-card{height:175px;perspective:1000px;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .flip-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .75s cubic-bezier(.4,.2,.2,1)}
 .flip-card.flipped .flip-inner{transform:rotateY(180deg)}
-.flip-front,.flip-back{position:absolute;inset:0;border:3px solid #332527;border-radius:19px;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:11px;box-shadow:4px 5px 0 #332527}
+.flip-front,.flip-back{position:absolute;inset:0;width:100%;height:100%;border:3px solid #332527;border-radius:19px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:11px;box-shadow:4px 5px 0 #332527}
 .flip-front{background:linear-gradient(145deg,#fffaf5,#f7dfe2);color:#8e1835}
-.card-number{position:absolute;left:10px;top:8px;font: bold 9px Arial;color:#a66d78}
-.card-icon{font-size:34px;margin-bottom:5px}
-.flip-front strong{font: bold 12px Arial;letter-spacing:1px}.flip-front small{margin-top:4px;color:#88696f;font-size:9px}
+.card-number{position:absolute;left:10px;top:8px;font-family:Arial,sans-serif;font-size:9px;font-weight:bold;color:#a66d78}
+.card-icon{font-size:34px;margin-bottom:5px;animation:tinyFloat 2s ease-in-out infinite}
+@keyframes tinyFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.flip-front strong{font-family:Arial,sans-serif;font-size:12px;letter-spacing:1px}
+.flip-front small{margin-top:4px;color:#88696f;font-size:9px}
 .flip-back{transform:rotateY(180deg);background:linear-gradient(145deg,#8f1835,#b72c4e);color:white}
-.back-icon{font-size:27px;margin-bottom:3px}.flip-back strong{font:bold 10px Arial;letter-spacing:.8px;margin-bottom:5px}.flip-back p{color:#fff7f4;font-size:10.5px;line-height:1.43}
-.secret-unlock,.photo-secret{width:100%;max-width:350px;margin:15px auto 0;padding:14px;background:#fff8f2;border:2px dashed #d5a4aa;border-radius:17px}
-.lock-icon{font-size:26px;margin-bottom:4px}.secret-unlock h3{color:#8e1835;font-size:16px;margin-bottom:5px}.secret-unlock p{color:#765b60;font-size:11px;margin-bottom:9px}
-.unlock-progress{display:inline-block;padding:6px 12px;border-radius:20px;background:#f3dce0;color:#8e1835;font: bold 10px Arial}
+.back-icon{font-size:27px;margin-bottom:3px}
+.flip-back strong{font-family:Arial,sans-serif;font-size:10px;letter-spacing:.8px;margin-bottom:5px}
+.flip-back p{color:#fff7f4;font-size:10.5px;line-height:1.43}
+
+.secret-unlock{width:100%;max-width:350px;margin:15px auto 0;padding:14px;background:#fff8f2;border:2px dashed #d5a4aa;border-radius:17px}
+.lock-icon{font-size:26px;margin-bottom:4px}
+.secret-unlock h3{color:#8e1835;font-size:16px;margin-bottom:5px}
+.secret-unlock p{color:#765b60;font-size:11px;margin-bottom:9px}
+.unlock-progress{display:inline-block;padding:6px 12px;border-radius:20px;background:#f3dce0;color:#8e1835;font-family:Arial,sans-serif;font-size:10px;font-weight:bold}
+
 .hidden-note{display:none;width:100%;max-width:380px;margin:17px auto 0;padding:19px 17px;background:linear-gradient(145deg,#fffaf5,#ffeef1);border:3px solid #8e1835;border-radius:21px;box-shadow:5px 6px 0 #332527}
-.hidden-note.show{display:block;animation:unlock .8s ease}
-@keyframes unlock{from{opacity:0;transform:translateY(20px) scale(.9)}to{opacity:1;transform:none}}
-.unlock-badge{display:inline-block;padding:6px 11px;border-radius:20px;background:#8e1835;color:white;font:bold 9px Arial;margin-bottom:6px}
+.hidden-note.show{display:block;animation:unlockAnimation .8s cubic-bezier(.17,.67,.32,1.3)}
+@keyframes unlockAnimation{0%{opacity:0;transform:translateY(30px) scale(.82) rotate(-2deg)}60%{transform:translateY(-5px) scale(1.02) rotate(1deg)}100%{opacity:1;transform:translateY(0) scale(1) rotate(0)}}
+.unlock-badge{display:inline-block;padding:6px 11px;border-radius:20px;background:#8e1835;color:white;font-family:Arial,sans-serif;font-size:9px;font-weight:bold;letter-spacing:.7px;margin-bottom:6px}
 .note-heart{font-size:41px;margin:2px 0;animation:heartbeat 1.4s infinite}
-.hidden-note h3{color:#8e1835;font:italic 29px "Brush Script MT","Segoe Script",cursive;margin-bottom:8px}
+.hidden-note h3{color:#8e1835;font-family:"Brush Script MT","Segoe Script",cursive;font-size:29px;margin-bottom:8px}
 .hidden-note p{color:#654b50;font-size:12.5px;line-height:1.65;margin-bottom:9px}
-.hidden-note .highlight{color:#8e1835;font-size:23px;margin:12px 0}
+.hidden-note .highlight{color:#8e1835;font-family:"Brush Script MT","Segoe Script",cursive;font-size:23px;margin:12px 0}
+
 .photo-intro{max-width:350px;margin:0 auto 17px;color:#765b60;font-size:13px;line-height:1.6}
-.photo-stack{width:100%;max-width:375px;margin:12px auto 21px;display:flex;flex-direction:column;gap:28px}
-.photo-card{width:100%;background:white;padding:10px 10px 15px;border:2px solid #332527;box-shadow:5px 6px 0 #332527;border-radius:4px}
+.photo-stack{width:100%;max-width:375px;margin:12px auto 21px;display:flex;flex-direction:column;gap:28px;overflow:visible}
+.photo-card{width:100%;background:#fff;padding:10px 10px 15px;border:2px solid #332527;box-shadow:5px 6px 0 #332527;border-radius:4px;transition:transform .25s ease;height:auto;overflow:visible}
 .photo-card:nth-child(1){transform:rotate(-2deg)}.photo-card:nth-child(2){transform:rotate(2deg)}.photo-card:nth-child(3){transform:rotate(-1.5deg)}.photo-card:nth-child(4){transform:rotate(2.2deg)}
-.photo-frame{width:100%;height:auto;overflow:hidden;background:linear-gradient(135deg,#f9e9e8,#f4dfe1);display:flex;align-items:center;justify-content:center}
-.photo-frame img{width:100%;height:auto;max-width:100%;display:block;object-fit:contain}
-.photo-caption{padding:11px 7px 2px}.photo-title{color:#8e1835;font:italic 22px "Brush Script MT","Segoe Script",cursive;margin-bottom:4px}.photo-caption p{color:#604b4f;font-size:11.5px;line-height:1.5}
-.photo-secret .secret-emoji{font-size:28px;margin-bottom:4px}.photo-secret p{color:#654b50;font-size:12px;line-height:1.6}.photo-secret strong{color:#8e1835}
+.photo-card:hover{transform:rotate(0) translateY(-3px)}
+.photo-frame{width:100%;height:auto;overflow:hidden;background:linear-gradient(135deg,#f9e9e8,#f4dfe1);position:relative;border-radius:2px;display:flex;align-items:center;justify-content:center}
+.photo-frame img{width:100%;height:auto;max-width:100%;display:block;object-fit:contain;object-position:center;transition:transform .5s ease}
+.photo-card:hover .photo-frame img{transform:scale(1.025)}
+.photo-caption{padding:11px 7px 2px}
+.photo-title{color:#8e1835;font-family:"Brush Script MT","Segoe Script",cursive;font-size:22px;margin-bottom:4px}
+.photo-caption p{color:#604b4f;font-size:11.5px;line-height:1.5;margin:0}
+.photo-secret{margin:8px auto 19px;padding:16px 14px;max-width:350px;background:#fff4f3;border:2px dashed #c98996;border-radius:17px}
+.photo-secret .secret-emoji{font-size:28px;margin-bottom:4px}
+.photo-secret p{color:#654b50;font-size:12px;line-height:1.6;margin:0}
+.photo-secret strong{color:#8e1835}
+
 .cake-area{width:220px;height:175px;margin:2px auto 7px;position:relative}
 .cake{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);width:170px}
 .cake-top{height:44px;background:#f3b5b7;border:3px solid #332527;border-radius:14px 14px 7px 7px;position:relative}
-.cake-top:after{content:"• • • • •";position:absolute;left:42px;top:8px;color:#8e1835;font-size:17px;letter-spacing:7px}
+.cake-top::after{content:"• • • • •";position:absolute;left:42px;top:8px;color:#8e1835;font-size:17px;letter-spacing:7px}
 .cake-bottom{height:53px;background:#fff0dc;border:3px solid #332527;border-top:none;border-radius:0 0 14px 14px}
-.candle{position:absolute;top:-47px;width:12px;height:47px;border:2px solid #332527;border-radius:4px;background:repeating-linear-gradient(45deg,#fff 0,#fff 5px,#d5576f 5px,#d5576f 10px)}
+.candle{position:absolute;top:-47px;width:12px;height:47px;border:2px solid #332527;border-radius:4px;background:repeating-linear-gradient(45deg,#fff 0px,#fff 5px,#d5576f 5px,#d5576f 10px)}
 .candle:nth-child(1){left:48px}.candle:nth-child(2){left:79px}.candle:nth-child(3){left:110px}
 .flame{position:absolute;left:-3px;top:-23px;width:15px;height:21px;background:#ffb52e;border:2px solid #332527;border-radius:50% 50% 50% 0;transform:rotate(-45deg);animation:flame .5s infinite alternate}
 .flame.off{display:none}
-@keyframes flame{to{transform:rotate(-45deg) scale(1.1)}}
+@keyframes flame{from{transform:rotate(-45deg) scale(.9)}to{transform:rotate(-45deg) scale(1.1)}}
+
 .letter{text-align:left;padding:17px;margin:9px 0 18px;background:#fffaf4;border:2px solid #ead8d0;border-radius:17px}
 .letter p{color:#604a4e;font-size:13.5px;line-height:1.7;margin-bottom:10px}
-.letter .signature{color:#8e1835;font:italic 24px "Brush Script MT",cursive;margin-top:13px}
+.letter .signature{color:#8e1835;font-family:"Brush Script MT",cursive;font-size:24px;margin-top:13px}
+
 .question{color:#8e1835;font-size:clamp(24px,6vw,34px);line-height:1.2;margin:9px auto 13px}
 .answer-area{min-height:150px;display:flex;align-items:center;justify-content:center;gap:10px;position:relative;flex-wrap:wrap}
 .final-heart{font-size:68px;margin:3px 0 7px;animation:heartbeat 1.3s infinite}
 .final-message{max-width:370px;margin:0 auto 17px;color:#5b4447;font-size:14px;line-height:1.75}
-.music-btn{position:fixed;right:14px;bottom:14px;width:46px;height:46px;border:2px solid #332527;border-radius:50%;background:#fffffff0;font-size:18px;cursor:pointer;z-index:200;box-shadow:0 3px #332527}
+.final-icons{display:flex;justify-content:center;gap:10px;font-size:25px;margin:10px 0}
 
-/* NEW BALLOON AND VOICE PAGE */
-.voice-balloon-area{display:flex;justify-content:center;align-items:flex-start;gap:14px;margin:25px auto 20px}
-.voice-balloon{width:78px;height:100px;position:relative;cursor:pointer;border:0;background:transparent;padding:0;transition:transform .25s}
-.voice-balloon:hover{transform:translateY(-5px)}
-.balloon-body{display:flex;align-items:center;justify-content:center;width:100%;height:76px;border:3px solid #332527;border-radius:50% 50% 46% 46%;box-shadow:3px 4px 0 #332527;color:white;font-size:26px;position:relative}
-.voice-balloon:nth-child(1) .balloon-body{background:#d95772}
-.voice-balloon:nth-child(2) .balloon-body{background:#d6a94f}
-.voice-balloon:nth-child(3) .balloon-body{background:#9e2341}
-.balloon-string{height:24px;width:1px;background:#806b6c;display:block;margin:6px auto 0}
-.voice-balloon.popped{animation:balloonPop .3s ease forwards;pointer-events:none}
-.voice-balloon.popped .balloon-body{background:transparent;border-color:transparent;box-shadow:none}
-.voice-balloon.popped .balloon-string{opacity:0}
-.voice-balloon.popped .balloon-body:after{display:none}
-@keyframes balloonPop{0%{transform:scale(1);opacity:1}55%{transform:scale(1.3);opacity:.8}100%{transform:scale(.2);opacity:0}}
-.revealed-word{display:block;color:#8e1835;font-size:25px;font-weight:bold;margin-top:5px;min-height:34px}
-.voice-box{margin:18px auto 0;padding:17px 12px;background:#fff4f3;border:2px dashed #d5a4aa;border-radius:18px}
-.voice-status{font-size:12px;line-height:1.6;color:#654b50;margin:10px 0;overflow-wrap:anywhere}
-.voice-status.success{color:#287447;font-weight:bold}.voice-status.error{color:#a01d3c;font-weight:bold}
-.voice-action{width:100%;min-width:0;margin-top:8px}
-.voice-transcript{padding:10px;margin:10px 0;background:white;border-radius:10px;font-size:12px;color:#604b4f;overflow-wrap:anywhere}
-@media(max-width:370px){.screen{padding:10px 9px 18px}.main-card{padding:21px 14px 20px;border-radius:24px}.flip-grid{gap:9px}.flip-card{height:150px}.flip-front,.flip-back{padding:8px}.card-icon{font-size:29px}.flip-back p{font-size:9.5px}.subtitle{font-size:14px}.btn{min-width:175px;min-height:52px;font-size:12px}.photo-title{font-size:20px}.photo-caption p{font-size:10.5px}.voice-balloon-area{gap:8px}.voice-balloon{width:70px}.balloon-body{height:70px}}
-@media(max-height:680px){.screen{padding-top:7px;padding-bottom:10px}.main-card{padding-top:18px;padding-bottom:18px}.big-heart{font-size:40px}.balloon-stage{height:105px}.flip-card{height:135px}.flip-grid{margin:9px auto}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+.music-btn{position:fixed;right:14px;bottom:14px;width:46px;height:46px;border:2px solid #332527;border-radius:50%;background:rgba(255,255,255,.94);font-size:18px;cursor:pointer;z-index:200;box-shadow:0 3px 0 #332527}
+
+/* VOICE RECORDING ADDITION */
+.voice-section{width:100%;max-width:350px;margin:20px auto 0;padding:15px;background:#fff8f2;border:2px dashed #d5a4aa;border-radius:17px}
+.voice-section h3{color:#8e1835;font-size:17px;margin-bottom:7px}
+.voice-section p{color:#765b60;font-size:12px;line-height:1.6;margin-bottom:10px}
+.voice-status{margin-top:10px;font-size:12px;color:#8e1835;line-height:1.6}
+.voice-input{width:100%;padding:12px;margin:8px 0 10px;border:2px solid #d89aa7;border-radius:12px;background:white;color:#3b2529;font-family:Georgia,serif;font-size:14px}
+.voice-fallback{display:none;margin-top:12px}
+.voice-recording{background:#b02248!important}
+
+@media(max-width:370px){
+.screen{padding:10px 9px 18px}
+.main-card{padding:21px 14px 20px;border-radius:24px}
+.flip-grid{gap:9px}
+.flip-card{height:150px}
+.flip-front,.flip-back{padding:8px}
+.card-icon{font-size:29px}
+.flip-back p{font-size:9.5px}
+.subtitle{font-size:14px}
+.btn{min-width:175px;min-height:52px;font-size:12px}
+.photo-title{font-size:20px}
+.photo-caption p{font-size:10.5px}
+}
+@media(max-height:680px){
+.screen{padding-top:7px;padding-bottom:10px}
+.main-card{padding-top:18px;padding-bottom:18px}
+.big-heart{font-size:40px}
+.balloon-stage{height:105px}
+.flip-card{height:135px}
+.flip-grid{margin:9px auto}
+}
+@media(prefers-reduced-motion:reduce){
+*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
 </style>
 </head>
 
@@ -142,7 +185,9 @@ h2{color:#8e1835;font-size:clamp(27px,7vw,38px);line-height:1.12;margin-bottom:1
 <section class="screen" id="screen2">
 <div class="main-card">
 <div class="eyebrow">STEP 1 OF THE SURPRISE</div>
-<div class="balloon-stage"><div class="stage-balloon"></div><div class="stage-balloon"></div><div class="stage-balloon"></div><div class="stage-balloon"></div></div>
+<div class="balloon-stage">
+<div class="stage-balloon"></div><div class="stage-balloon"></div><div class="stage-balloon"></div><div class="stage-balloon"></div>
+</div>
 <h2 class="script">Balloons Released! 🎉</h2>
 <p class="subtitle">Watch the balloons float away<br>because apparently your birthday needs unnecessary drama. 😂</p>
 <button class="btn" onclick="nextScreen(3)">UNLOCK SOME SECRETS 🃏 →</button>
@@ -157,22 +202,26 @@ h2{color:#8e1835;font-size:clamp(27px,7vw,38px);line-height:1.12;margin-bottom:1
 <p class="subtitle">Flip every card.<br>Don't be scared, gwarrr. 😂</p>
 
 <div class="flip-grid">
-<div class="flip-card" onclick="flipCard(this,1)"><div class="flip-inner">
+<div class="flip-card" onclick="flipCard(this,1)">
+<div class="flip-inner">
 <div class="flip-front"><div class="card-number">01</div><div class="card-icon">🎀</div><strong>TAP ME</strong><small>I know something...</small></div>
 <div class="flip-back"><div class="back-icon">😌</div><strong>SECRET #01</strong><p>suar gwarr...<br>but unfortunately, you're also myyy babyyyy. 😭❤️</p></div>
 </div></div>
 
-<div class="flip-card" onclick="flipCard(this,2)"><div class="flip-inner">
+<div class="flip-card" onclick="flipCard(this,2)">
+<div class="flip-inner">
 <div class="flip-front"><div class="card-number">02</div><div class="card-icon">😂</div><strong>TAP ME</strong><small>Very important...</small></div>
 <div class="flip-back"><div class="back-icon">😭</div><strong>SECRET #02</strong><p>Haramkhor saa,<br>you somehow manage to make me smile without trying.</p></div>
 </div></div>
 
-<div class="flip-card" onclick="flipCard(this,3)"><div class="flip-inner">
+<div class="flip-card" onclick="flipCard(this,3)">
+<div class="flip-inner">
 <div class="flip-front"><div class="card-number">03</div><div class="card-icon">👀</div><strong>TAP ME</strong><small>Don't be shy...</small></div>
 <div class="flip-back"><div class="back-icon">😏</div><strong>SECRET #03</strong><p>Nalla besharam,<br>why do you have to look this good for no reason? 😒</p></div>
 </div></div>
 
-<div class="flip-card" onclick="flipCard(this,4)"><div class="flip-inner">
+<div class="flip-card" onclick="flipCard(this,4)">
+<div class="flip-inner">
 <div class="flip-front"><div class="card-number">04</div><div class="card-icon">💌</div><strong>TAP ME</strong><small>Highly classified...</small></div>
 <div class="flip-back"><div class="back-icon">🥹</div><strong>SECRET #04</strong><p>You're my little baby.<br>Don't let that go to your head though. 😤❤️</p></div>
 </div></div>
@@ -186,8 +235,7 @@ h2{color:#8e1835;font-size:clamp(27px,7vw,38px);line-height:1.12;margin-bottom:1
 
 <div class="hidden-note" id="hiddenNote">
 <div class="unlock-badge">🔓 SECRET UNLOCKED</div>
-<div class="note-heart">💗</div>
-<h3>Okay... fine.</h3>
+<div class="note-heart">💗</div><h3>Okay... fine.</h3>
 <p>I was going to keep bullying you...</p>
 <p>But you flipped all four cards, so now I have to admit something.</p>
 <p>You're a suar gwarr, haramkhor, nalla, besharam...</p>
@@ -198,7 +246,7 @@ h2{color:#8e1835;font-size:clamp(27px,7vw,38px);line-height:1.12;margin-bottom:1
 </div>
 </section>
 
-<!-- SCREEN 4: PHOTOS -->
+<!-- SCREEN 4 -->
 <section class="screen" id="screen4">
 <div class="main-card">
 <div class="eyebrow">VERY IMPORTANT EVIDENCE 📸</div>
@@ -213,58 +261,26 @@ h2{color:#8e1835;font-size:clamp(27px,7vw,38px);line-height:1.12;margin-bottom:1
 </div>
 
 <div class="photo-secret"><div class="secret-emoji">🫣</div><p>Okay fine...<br>You are actually very handsome.<br><br><strong>But don't let this information get to your head, suar gwarr.</strong></p></div>
-<button class="btn" onclick="openVoicePage()">POP YOUR BALLOONS 🎈 →</button>
+<button class="btn" onclick="nextScreen(5)">OKAY BABY, NEXT ❤️ →</button>
 </div>
 </section>
 
-<!-- NEW SCREEN: THREE BALLOONS + VOICE CHALLENGE -->
-<section class="screen" id="screenVoice">
-<div class="main-card">
-<div class="eyebrow">THREE LITTLE WORDS 🎈</div>
-<h2 class="script">Pop the Balloons! ❤️</h2>
-<p class="subtitle">Each balloon has one little word for you.<br>Pop all three to reveal the message. 🥹</p>
-
-<div class="voice-balloon-area">
-<div><button class="voice-balloon" type="button" aria-label="Pop first balloon" onclick="popLoveBalloon(0)"><span class="balloon-body">🎈</span><span class="balloon-string"></span></button><span class="revealed-word" id="loveWord0"></span></div>
-<div><button class="voice-balloon" type="button" aria-label="Pop second balloon" onclick="popLoveBalloon(1)"><span class="balloon-body">🎈</span><span class="balloon-string"></span></button><span class="revealed-word" id="loveWord1"></span></div>
-<div><button class="voice-balloon" type="button" aria-label="Pop third balloon" onclick="popLoveBalloon(2)"><span class="balloon-body">🎈</span><span class="balloon-string"></span></button><span class="revealed-word" id="loveWord2"></span></div>
-</div>
-
-<h2 id="loveMessage" class="script" style="display:none">I LOVE YOU ❤️</h2>
-
-<div class="voice-box" id="voiceBox" style="display:none">
-<div style="font-size:32px">🎙️</div>
-<h3 style="color:#8e1835;margin:8px 0">Your turn, birthday boy!</h3>
-<p class="small-text">Record yourself saying:</p>
-<p style="color:#8e1835;font-weight:bold;margin:10px 0">"I love you more baby." ❤️</p>
-<p class="small-text">Say the whole sentence clearly in English. Your recording and recognized words are checked before continuing.</p>
-
-<button class="btn voice-action" id="startVoiceBtn" onclick="startLoveRecording()">🎙️ START RECORDING</button>
-<button class="btn secondary voice-action" id="stopVoiceBtn" style="display:none" onclick="stopLoveRecording()">STOP RECORDING</button>
-<div class="voice-status" id="voiceStatus" role="status" aria-live="polite">Pop all three balloons first.</div>
-<div class="voice-transcript" id="voiceTranscript" style="display:none"></div>
-<audio id="recordedAudio" controls style="display:none;width:100%;margin:10px 0"></audio>
-<button class="btn secondary voice-action" id="retryVoiceBtn" style="display:none" onclick="resetLoveRecording()">TRY AGAIN</button>
-<button class="btn voice-action" id="continueVoiceBtn" disabled onclick="continueAfterVoice()">UNLOCK NEXT PAGE 🔒</button>
-</div>
-</div>
-</section>
-
-<!-- SCREEN 5: CAKE -->
+<!-- SCREEN 5 -->
 <section class="screen" id="screen5">
 <div class="main-card">
 <div class="eyebrow">NEXT CHAPTER 🎂</div>
 <h2>Make A Wish,<br>Birthday Boy 🕯️</h2>
-<div class="cake-area"><div class="cake">
-<div class="cake-top"><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div></div>
-<div class="cake-bottom"></div>
-</div></div>
+<div class="cake-area"><div class="cake"><div class="cake-top">
+<div class="candle"><div class="flame"></div></div>
+<div class="candle"><div class="flame"></div></div>
+<div class="candle"><div class="flame"></div></div>
+</div><div class="cake-bottom"></div></div></div>
 <p class="subtitle">Close your eyes...<br>make a wish...<br>and blow the candles. 🎂</p>
 <button class="btn" id="blowBtn" onclick="blowCandles()">💨 BLOW CANDLES</button>
 </div>
 </section>
 
-<!-- SCREEN 6: LETTER -->
+<!-- SCREEN 6 -->
 <section class="screen" id="screen6">
 <div class="main-card">
 <div class="eyebrow">A LITTLE LETTER FOR YOU 💌</div>
@@ -284,21 +300,47 @@ h2{color:#8e1835;font-size:clamp(27px,7vw,38px);line-height:1.12;margin-bottom:1
 </div>
 </section>
 
-<!-- SCREEN 7: QUESTION -->
+<!-- SCREEN 7 -->
 <section class="screen" id="screen7">
 <div class="main-card">
 <span class="big-heart">😙</span>
 <div class="eyebrow">VERY IMPORTANT QUESTION</div>
 <div class="question">Shivam...<br>will you always be<br>my favorite person?</div>
 <p class="small-text">Choose wisely, little baby. 😌❤️</p>
+
 <div class="answer-area">
 <button class="btn" onclick="yesAnswer()">YES ❤️</button>
 <button class="btn secondary" id="noBtn" onclick="moveNoButton()">NO 😏</button>
 </div>
+
+<!-- VOICE RECORDING FEATURE -->
+<div class="voice-section" id="voiceSection">
+<h3>One tiny voice promise 🎙️❤️</h3>
+<p>Record yourself saying <b>"I love you more baby."</b></p>
+<button class="btn" id="recordBtn" onclick="recordVoice()">🎙️ RECORD MY VOICE</button>
+<p class="voice-status" id="voiceStatus" aria-live="polite">You get two attempts, baby. ❤️</p>
+
+<div id="voiceFallback" class="voice-fallback">
+<p>It's okay, baby! The recording didn't work twice. You can write it instead. 💌</p>
+<input class="voice-input" id="loveMessage" type="text" placeholder="I love you more baby" maxlength="200">
+<button class="btn" onclick="submitWrittenMessage()">SEND MY MESSAGE ❤️</button>
+</div>
+
+<div id="voiceResult" style="display:none;margin-top:12px">
+<p>Your recording is ready! ❤️</p>
+<audio id="voicePlayback" controls style="width:100%"></audio>
+<button class="btn secondary" style="margin-top:10px" onclick="downloadVoice()">SAVE VOICE RECORDING ⬇️</button>
+</div>
+
+<div id="writtenResult" style="display:none;margin-top:12px">
+<p class="script" style="font-size:25px" id="writtenMessage"></p>
+<p>Your message is right here, baby. ❤️</p>
+</div>
+</div>
 </div>
 </section>
 
-<!-- SCREEN 8: FINAL -->
+<!-- SCREEN 8 -->
 <section class="screen" id="screen8">
 <div class="main-card">
 <div class="final-heart">❤️</div>
@@ -312,366 +354,287 @@ h2{color:#8e1835;font-size:clamp(27px,7vw,38px);line-height:1.12;margin-bottom:1
 </div>
 </section>
 
-<button class="music-btn" onclick="toggleMusic()" id="musicBtn" aria-label="Toggle music">🔇</button>
+<button class="music-btn" onclick="toggleMusic()" id="musicBtn">🔇</button>
 </div>
 
 <script>
-let currentScreen = 1;
-
-function nextScreen(number) {
-    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
-    const target = document.getElementById("screen" + number);
-    if (!target) return;
-    target.classList.add("active");
-    currentScreen = number;
-    window.scrollTo({top:0,behavior:"smooth"});
-    createConfetti(18);
+/* SCREEN NAVIGATION */
+let currentScreen=1;
+function nextScreen(number){
+const oldScreen=document.getElementById("screen"+currentScreen);
+const newScreen=document.getElementById("screen"+number);
+if(!newScreen)return;
+oldScreen.classList.remove("active");
+newScreen.classList.add("active");
+currentScreen=number;
+window.scrollTo({top:0,behavior:"smooth"});
+createConfetti(18);
 }
 
-const confettiColors = ["#d95470","#e3b452","#9c2340","#e8a6b3","#c9a15d","#b64a5f","#f0c8a8"];
+/* CONFETTI */
+const confettiColors=["#d95470","#e3b452","#9c2340","#e8a6b3","#c9a15d","#b64a5f","#f0c8a8"];
+function createConfetti(amount=30){
+const container=document.getElementById("confetti");
+for(let i=0;i<amount;i++){
+const piece=document.createElement("div");
+piece.className="confetti";
+piece.style.left=Math.random()*100+"%";
+piece.style.background=confettiColors[Math.floor(Math.random()*confettiColors.length)];
+piece.style.animationDuration=(3+Math.random()*5)+"s";
+piece.style.animationDelay=Math.random()*1.2+"s";
+container.appendChild(piece);
+setTimeout(()=>piece.remove(),9000);
+}
+}
+window.addEventListener("load",()=>{
+createConfetti(30);
+setTimeout(()=>createConfetti(15),1800);
+});
 
-function createConfetti(amount=30) {
-    const container = document.getElementById("confetti");
-    for (let i=0;i<amount;i++) {
-        const piece = document.createElement("div");
-        piece.className = "confetti";
-        piece.style.left = Math.random()*100+"%";
-        piece.style.background = confettiColors[Math.floor(Math.random()*confettiColors.length)];
-        piece.style.animationDuration = (3+Math.random()*5)+"s";
-        piece.style.animationDelay = Math.random()*0.5+"s";
-        container.appendChild(piece);
-        setTimeout(()=>piece.remove(),9000);
-    }
+/* FLIP CARDS */
+let flippedCards=new Set();
+function flipCard(card,number){
+if(card.classList.contains("flipped"))return;
+card.classList.add("flipped");
+flippedCards.add(number);
+createConfetti(8);
+updateCardProgress();
+}
+function updateCardProgress(){
+document.getElementById("cardCount").textContent=flippedCards.size;
+if(flippedCards.size===4){
+setTimeout(()=>{
+document.getElementById("secretUnlock").style.display="none";
+document.getElementById("hiddenNote").classList.add("show");
+createConfetti(60);
+if(navigator.vibrate)navigator.vibrate([80,50,120,50,180]);
+},650);
+}
 }
 
-window.addEventListener("load",()=>createConfetti(25));
-
-let flippedCards = new Set();
-
-function flipCard(card,number) {
-    if(card.classList.contains("flipped")) return;
-    card.classList.add("flipped");
-    flippedCards.add(number);
-    createConfetti(8);
-    document.getElementById("cardCount").textContent=flippedCards.size;
-
-    if(flippedCards.size===4) {
-        setTimeout(()=>{
-            document.getElementById("secretUnlock").style.display="none";
-            document.getElementById("hiddenNote").classList.add("show");
-            createConfetti(45);
-            if(navigator.vibrate) navigator.vibrate([80,50,120]);
-        },650);
-    }
+/* BLOW CANDLES */
+function blowCandles(){
+document.querySelectorAll(".flame").forEach(flame=>flame.classList.add("off"));
+createConfetti(60);
+const button=document.getElementById("blowBtn");
+button.innerHTML="🎉 WISH MADE!";
+button.disabled=true;
+button.style.opacity=".7";
+setTimeout(()=>nextScreen(6),1700);
 }
 
-function blowCandles() {
-    document.querySelectorAll(".flame").forEach(f=>f.classList.add("off"));
-    createConfetti(50);
-    const button=document.getElementById("blowBtn");
-    button.textContent="🎉 WISH MADE!";
-    button.disabled=true;
-    setTimeout(()=>nextScreen(6),1500);
+/* YES BUTTON */
+function yesAnswer(){
+createConfetti(100);
+if(navigator.vibrate)navigator.vibrate([100,60,150]);
+nextScreen(8);
 }
 
-function yesAnswer() {
-    createConfetti(80);
-    if(navigator.vibrate) navigator.vibrate([100,60,150]);
-    nextScreen(8);
-}
-
+/* NO BUTTON */
 let noMoves=0;
-function moveNoButton() {
-    const button=document.getElementById("noBtn");
-    noMoves++;
-    button.style.transform=`translate(${Math.random()*130-65}px,${Math.random()*70-35}px)`;
-    const labels=["ARE YOU SURE? 👀","REALLY? 😭","THINK AGAIN 😤","NOPE 😂","YOU CAN'T ESCAPE 😭"];
-    button.textContent=labels[Math.min(noMoves-1,labels.length-1)];
+function moveNoButton(){
+const button=document.getElementById("noBtn");
+noMoves++;
+const x=Math.random()*150-75;
+const y=Math.random()*90-45;
+button.style.transform=`translate(${x}px, ${y}px)`;
+if(noMoves===1)button.innerHTML="ARE YOU SURE? 👀";
+else if(noMoves===2)button.innerHTML="REALLY? 😭";
+else if(noMoves===3)button.innerHTML="THINK AGAIN 😤";
+else if(noMoves===4)button.innerHTML="NOPE 😂";
+else button.innerHTML="YOU CAN'T ESCAPE 😭";
 }
 
-function toggleMusic() {
-    alert("Music is not added yet. Add an audio file if you'd like background music.");
+/* VOICE RECORDING: TWO ATTEMPTS, THEN WRITTEN FALLBACK */
+let voiceAttempts=0;
+let voiceRecorder=null;
+let voiceStream=null;
+let voiceChunks=[];
+let voiceBlob=null;
+let voiceObjectUrl=null;
+let recordingActive=false;
+
+async function recordVoice(){
+const button=document.getElementById("recordBtn");
+const status=document.getElementById("voiceStatus");
+
+if(recordingActive && voiceRecorder && voiceRecorder.state==="recording"){
+voiceRecorder.stop();
+button.disabled=true;
+button.textContent="PROCESSING... ⏳";
+status.textContent="Preparing your recording... ❤️";
+return;
 }
 
-/* =================================
-   THREE BALLOONS + VOICE CHALLENGE
-================================= */
-
-const loveWords=["I","LOVE","YOU"];
-const poppedLoveBalloons=new Set();
-
-let loveRecognition=null;
-let loveRecorder=null;
-let loveAudioStream=null;
-let audioChunks=[];
-let recordingUrl=null;
-let loveTranscript="";
-let loveRecordingActive=false;
-let loveValidRecording=false;
-let loveRecognitionEnded=false;
-let loveRecorderEnded=false;
-let loveRecognitionError=false;
-let checkingTimer=null;
-
-function openVoicePage() {
-    document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-    document.getElementById("screenVoice").classList.add("active");
-    currentScreen="Voice";
-    window.scrollTo({top:0,behavior:"smooth"});
-    createConfetti(25);
+if(voiceAttempts>=2){
+showVoiceFallback();
+return;
 }
 
-function popLoveBalloon(index) {
-    if(poppedLoveBalloons.has(index)) return;
-    poppedLoveBalloons.add(index);
+voiceAttempts++;
+button.disabled=true;
+button.textContent="CONNECTING TO MICROPHONE...";
+status.textContent="Attempt "+voiceAttempts+" of 2. Allow microphone access if asked.";
 
-    const balloons=document.querySelectorAll(".voice-balloon");
-    balloons[index].classList.add("popped");
-    balloons[index].disabled=true;
-    document.getElementById("loveWord"+index).textContent=loveWords[index];
-    createConfetti(15);
-
-    if(poppedLoveBalloons.size===3) {
-        document.getElementById("loveMessage").style.display="block";
-        document.getElementById("voiceBox").style.display="block";
-        setLoveStatus("All three words revealed! Now record the complete sentence.","");
-        createConfetti(35);
-    }
+try{
+if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || typeof MediaRecorder==="undefined"){
+throw new Error("Recording is not supported in this browser or connection.");
 }
 
-function setLoveStatus(message,type="") {
-    const status=document.getElementById("voiceStatus");
-    status.textContent=message;
-    status.className="voice-status"+(type?" "+type:"");
+voiceStream=await navigator.mediaDevices.getUserMedia({audio:true});
+voiceChunks=[];
+
+const mimeTypes=["audio/webm;codecs=opus","audio/webm","audio/mp4"];
+let selectedType="";
+for(const type of mimeTypes){
+if(MediaRecorder.isTypeSupported(type)){
+selectedType=type;
+break;
+}
 }
 
-function startLoveRecording() {
-    const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+voiceRecorder=selectedType
+?new MediaRecorder(voiceStream,{mimeType:selectedType})
+:new MediaRecorder(voiceStream);
 
-    if(!SpeechRecognition) {
-        setLoveStatus("Speech recognition isn't supported in this browser. Try a recent version of Google Chrome.","error");
-        return;
-    }
+voiceRecorder.ondataavailable=function(event){
+if(event.data && event.data.size>0)voiceChunks.push(event.data);
+};
 
-    if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||!window.MediaRecorder) {
-        setLoveStatus("Recording isn't supported here. Open this page in Chrome using HTTPS or localhost.","error");
-        return;
-    }
+voiceRecorder.onerror=function(){
+handleVoiceFailure("Something went wrong while recording.");
+};
 
-    if(recordingUrl) {
-        URL.revokeObjectURL(recordingUrl);
-        recordingUrl=null;
-    }
+voiceRecorder.onstop=function(){
+recordingActive=false;
+stopMicrophone();
 
-    const player=document.getElementById("recordedAudio");
-    player.pause();
-    player.removeAttribute("src");
-    player.style.display="none";
-
-    audioChunks=[];
-    loveTranscript="";
-    loveValidRecording=false;
-    loveRecognitionEnded=false;
-    loveRecorderEnded=false;
-    loveRecognitionError=false;
-    loveRecordingActive=true;
-
-    document.getElementById("startVoiceBtn").disabled=true;
-    document.getElementById("retryVoiceBtn").style.display="none";
-    document.getElementById("continueVoiceBtn").disabled=true;
-    document.getElementById("voiceTranscript").style.display="none";
-
-    navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
-        if(!loveRecordingActive) {
-            stream.getTracks().forEach(track=>track.stop());
-            return;
-        }
-
-        loveAudioStream=stream;
-
-        try {
-            loveRecorder=new MediaRecorder(stream);
-            loveRecognition=new SpeechRecognition();
-
-            loveRecognition.lang="en-US";
-            loveRecognition.continuous=true;
-            loveRecognition.interimResults=false;
-
-            loveRecorder.ondataavailable=event=>{
-                if(event.data&&event.data.size>0) audioChunks.push(event.data);
-            };
-
-            loveRecorder.onstop=()=>{
-                loveRecorderEnded=true;
-                checkLoveRecording();
-            };
-
-            loveRecognition.onresult=event=>{
-                for(let i=event.resultIndex;i<event.results.length;i++) {
-                    if(event.results[i].isFinal) {
-                        loveTranscript+=" "+event.results[i][0].transcript;
-                    }
-                }
-            };
-
-            loveRecognition.onerror=event=>{
-                if(event.error!=="no-speech") loveRecognitionError=true;
-            };
-
-            loveRecognition.onend=()=>{
-                loveRecognitionEnded=true;
-                checkLoveRecording();
-            };
-
-            loveRecorder.start();
-            loveRecognition.start();
-
-            document.getElementById("startVoiceBtn").style.display="none";
-            document.getElementById("stopVoiceBtn").style.display="inline-flex";
-            setLoveStatus("Recording now... Say: I love you more baby.","");
-        } catch(error) {
-            loveRecordingActive=false;
-            cleanupLoveAudio();
-            document.getElementById("startVoiceBtn").disabled=false;
-            setLoveStatus("Couldn't start recording. Please try again.","error");
-        }
-    }).catch(()=>{
-        loveRecordingActive=false;
-        document.getElementById("startVoiceBtn").disabled=false;
-        setLoveStatus("Microphone access was denied. Allow microphone access in your browser and try again.","error");
-    });
+if(voiceChunks.length===0){
+handleVoiceFailure("No audio was recorded. Please try again.");
+return;
 }
 
-function stopLoveRecording() {
-    if(!loveRecordingActive) return;
-    loveRecordingActive=false;
+voiceBlob=new Blob(voiceChunks,{type:voiceRecorder.mimeType||"audio/webm"});
 
-    document.getElementById("stopVoiceBtn").style.display="none";
-    setLoveStatus("Checking your recording... Please wait.","");
-
-    try {
-        if(loveRecorder&&loveRecorder.state!=="inactive") loveRecorder.stop();
-        else loveRecorderEnded=true;
-    } catch(e) {
-        loveRecorderEnded=true;
-    }
-
-    try {
-        if(loveRecognition) loveRecognition.stop();
-        else loveRecognitionEnded=true;
-    } catch(e) {
-        loveRecognitionEnded=true;
-    }
-
-    clearTimeout(checkingTimer);
-    checkingTimer=setTimeout(()=>{
-        // Never accept a recording until both browser events finish.
-        if(!loveRecognitionEnded||!loveRecorderEnded) {
-            setLoveStatus("The browser hasn't finished checking the recording. Please try again.","error");
-            document.getElementById("retryVoiceBtn").style.display="inline-flex";
-        }
-    },5000);
+if(voiceBlob.size===0){
+handleVoiceFailure("The recording was empty. Please try again.");
+return;
 }
 
-function normalizeLoveWords(text) {
-    return text.toLowerCase().replace(/[^a-z\s]/g," ").replace(/\s+/g," ").trim();
+if(voiceObjectUrl)URL.revokeObjectURL(voiceObjectUrl);
+voiceObjectUrl=URL.createObjectURL(voiceBlob);
+
+const playback=document.getElementById("voicePlayback");
+playback.src=voiceObjectUrl;
+document.getElementById("voiceResult").style.display="block";
+document.getElementById("voiceFallback").style.display="none";
+
+status.textContent="Your recording is ready, baby! Listen below. ❤️";
+button.textContent="RECORD AGAIN 🎙️";
+button.disabled=false;
+};
+
+voiceRecorder.start();
+recordingActive=true;
+button.textContent="⏹️ STOP RECORDING";
+button.classList.add("voice-recording");
+button.disabled=false;
+status.textContent="Recording... Say: I love you more baby ❤️";
+
+}catch(error){
+stopMicrophone();
+handleVoiceFailure(
+error && error.name==="NotAllowedError"
+?"Microphone permission was denied."
+:"Recording couldn't start. Check your browser and microphone."
+);
+}
 }
 
-function checkLoveRecording() {
-    if(loveRecordingActive||!loveRecognitionEnded||!loveRecorderEnded) return;
-
-    clearTimeout(checkingTimer);
-    cleanupLoveAudio();
-
-    const transcript=normalizeLoveWords(loveTranscript);
-    const requiredPhrase="i love you more baby";
-    const hasAudio=audioChunks.some(chunk=>chunk.size>0);
-
-    // A real non-empty audio recording AND the complete phrase
-    // must be present before the next page is unlocked.
-    loveValidRecording=hasAudio&&!loveRecognitionError&&transcript.includes(requiredPhrase);
-
-    const transcriptBox=document.getElementById("voiceTranscript");
-    transcriptBox.style.display="block";
-    transcriptBox.textContent=transcript
-        ?"Recognized speech: "+loveTranscript.trim()
-        :"Recognized speech: Nothing detected.";
-
-    if(hasAudio) {
-        const blob=new Blob(audioChunks,{type:audioChunks[0]?.type||"audio/webm"});
-        const player=document.getElementById("recordedAudio");
-        recordingUrl=URL.createObjectURL(blob);
-        player.src=recordingUrl;
-        player.style.display="block";
-    }
-
-    document.getElementById("retryVoiceBtn").style.display="inline-flex";
-    document.getElementById("startVoiceBtn").style.display="none";
-
-    if(loveValidRecording) {
-        setLoveStatus("Perfect! ❤️ Your words were recognized. You can unlock the next page!","success");
-        document.getElementById("continueVoiceBtn").disabled=false;
-        createConfetti(40);
-    } else {
-        document.getElementById("continueVoiceBtn").disabled=true;
-
-        if(!hasAudio || !transcript) {
-            setLoveStatus("its empty nunu say something😂😙","error");
-        } else {
-            setLoveStatus("ehhh sahi se bol thpd lgega","error");
-        }
-    }
+function stopMicrophone(){
+if(voiceStream){
+voiceStream.getTracks().forEach(track=>track.stop());
+voiceStream=null;
+}
 }
 
-function cleanupLoveAudio() {
-    if(loveAudioStream) {
-        loveAudioStream.getTracks().forEach(track=>track.stop());
-        loveAudioStream=null;
-    }
-    loveRecorder=null;
-    loveRecognition=null;
+function handleVoiceFailure(message){
+recordingActive=false;
+stopMicrophone();
+
+const button=document.getElementById("recordBtn");
+const status=document.getElementById("voiceStatus");
+
+button.classList.remove("voice-recording");
+button.disabled=false;
+
+if(voiceAttempts>=2){
+status.textContent="We tried twice, baby. No worries! ❤️";
+showVoiceFallback();
+}else{
+button.textContent="TRY RECORDING AGAIN 🎙️";
+status.textContent=message+" Attempt "+voiceAttempts+" of 2.";
+}
 }
 
-function resetLoveRecording() {
-    if(loveRecordingActive) return;
-
-    loveTranscript="";
-    loveValidRecording=false;
-    loveRecognitionEnded=false;
-    loveRecorderEnded=false;
-    loveRecognitionError=false;
-    audioChunks=[];
-
-    document.getElementById("voiceTranscript").style.display="none";
-    document.getElementById("retryVoiceBtn").style.display="none";
-    document.getElementById("continueVoiceBtn").disabled=true;
-    document.getElementById("startVoiceBtn").style.display="inline-flex";
-    document.getElementById("startVoiceBtn").disabled=false;
-    document.getElementById("stopVoiceBtn").style.display="none";
-
-    const player=document.getElementById("recordedAudio");
-    player.pause();
-    player.removeAttribute("src");
-    player.style.display="none";
-
-    if(recordingUrl) {
-        URL.revokeObjectURL(recordingUrl);
-        recordingUrl=null;
-    }
-
-    setLoveStatus("Ready! Record the complete sentence to unlock the next page.","");
+function showVoiceFallback(){
+document.getElementById("voiceFallback").style.display="block";
+document.getElementById("voiceStatus").textContent="No worries, baby! You can write it instead. ❤️";
+const button=document.getElementById("recordBtn");
+button.disabled=true;
+button.textContent="RECORDING ATTEMPTS USED";
+button.classList.remove("voice-recording");
 }
 
-function continueAfterVoice() {
-    if(!loveValidRecording||poppedLoveBalloons.size!==3) {
-        setLoveStatus("The next page is still locked. Complete the balloon and voice challenge first.","error");
-        return;
-    }
+function submitWrittenMessage(){
+const input=document.getElementById("loveMessage");
+const message=input.value.trim();
 
-    loveValidRecording=false;
-    resetLoveRecording();
-    nextScreen(5);
-    createConfetti(50);
+if(!message){
+input.value="I love you more baby";
+}
+
+document.getElementById("writtenMessage").textContent=input.value.trim();
+document.getElementById("writtenResult").style.display="block";
+document.getElementById("voiceFallback").style.display="none";
+document.getElementById("voiceStatus").textContent="Your written message is ready. ❤️";
+createConfetti(25);
+}
+
+function downloadVoice(){
+if(!voiceBlob)return;
+
+const url=URL.createObjectURL(voiceBlob);
+const link=document.createElement("a");
+link.href=url;
+link.download="shivam-birthday-voice.webm";
+document.body.appendChild(link);
+link.click();
+link.remove();
+
+setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+/* MUSIC */
+let musicPlaying=false;
+function toggleMusic(){
+const music=document.getElementById("music");
+const button=document.getElementById("musicBtn");
+
+if(!music){
+alert("Music is not added yet. You can add an audio file later.");
+return;
+}
+
+if(musicPlaying){
+music.pause();
+musicPlaying=false;
+button.innerHTML="🔇";
+}else{
+music.play();
+musicPlaying=true;
+button.innerHTML="🔊";
+}
 }
 </script>
 </body>
